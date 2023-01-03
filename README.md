@@ -6,7 +6,7 @@
 - Typescript as typed language
 - Editorjs as wyswyg
 - Apollo Client as Graphql module
-- Chakra-UI as tailwind component
+- Chakra-UI as css framework
 
 ## Important Note!
 
