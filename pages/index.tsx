@@ -1,8 +1,6 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
-import { Box } from "@chakra-ui/react";
-
-const inter = Inter({ subsets: ["latin"] });
+import { VStack } from "@chakra-ui/react";
+import { Navbar } from "components/navbar";
 
 export default function Home() {
   return (
@@ -13,9 +11,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box as={"main"} display={"flex"} justifyContent={"center"} alignItems={"center"} w={"100vw"} h={"100vw"} bg={"whiteAlpha.100"}>
-        <p>Hello World</p>
-      </Box>
+      <VStack as={"main"}>
+        <Navbar />
+      </VStack>
     </>
   );
 }
