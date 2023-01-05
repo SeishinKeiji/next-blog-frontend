@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, HStack, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, Spacer, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Avatar, Button, Flex, HStack, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spacer, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Link from "next/link";
 import { MdLogin } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
@@ -38,6 +38,7 @@ export const Navbar = () => {
             </MenuItem>
             {/* show profile user like post, bookmarked, etc... if user role is member and show manager page if user role is admin */}
             <MenuItem>Dashboard</MenuItem>
+            <MenuDivider />
             <MenuItem>Logout</MenuItem>
           </MenuList>
         </Menu>
