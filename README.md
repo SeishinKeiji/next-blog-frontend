@@ -11,3 +11,7 @@
 ## Important Note!
 
 > Run backend side first, before start frontend side. And ensure that you have configured your environment variable
+
+## Docs Reference
+
+- [Nextjs Multiple Layouts](https://alexjohnsuarez.medium.com/next-js-multiple-layouts-patterns-with-typescript-b3b8385a8c4)
