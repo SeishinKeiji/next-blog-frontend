@@ -9,17 +9,15 @@ export type ResolverContext = {
   res?: ServerResponse;
 };
 
-const schema: any = "schema.gql";
-
 function createIsomorphLink(context: ResolverContext = {}) {
   if (typeof window === "undefined") {
     const { SchemaLink } = require("@apollo/client/link/schema");
 
-    return new SchemaLink({ schema, context });
+    return new SchemaLink({ schema: "./generated-types.ts", context });
   } else {
     const { HttpLink } = require("@apollo/client");
     return new HttpLink({
-      uri: "/api/graphql",
+      uri: "/graphql",
       credentials: "same-origin",
     });
   }

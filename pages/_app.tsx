@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
-import { useApollo } from "lib/apollo";
+import { useApollo } from "lib/GraphQL/apollo";
 import type { NextComponentType } from "next";
 import type { AppProps } from "next/app";
 import { Fragment } from "react";
