@@ -17,7 +17,7 @@ function createIsomorphLink(context: ResolverContext = {}) {
   } else {
     const { HttpLink } = require("@apollo/client");
     return new HttpLink({
-      uri: "/graphql",
+      uri: "http://localhost:8000/graphql",
       credentials: "same-origin",
     });
   }
@@ -27,7 +27,7 @@ function createApolloClient(context?: ResolverContext) {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: createIsomorphLink(context),
-    cache: new InMemoryCache("__APOLLO_STATE__" in window ? (window.__APOLLO_STATE__ as InMemoryCacheConfig) : undefined),
+    cache: new InMemoryCache(typeof window !== "undefined" ? ("__APOLLO_STATE__" in window ? (window.__APOLLO_STATE__ as InMemoryCacheConfig) : undefined) : undefined),
   });
 }
 

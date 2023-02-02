@@ -1,22 +1,43 @@
-import { Button, FormControl, FormLabel, Heading, HStack, Input, Link, Text, VStack } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { AuthLayout } from "components/layout";
+import { Button, FormControl, FormLabel, Heading, HStack, Input, Link, Text, useToast, VStack } from "@chakra-ui/react";
 import { useLazyQuery } from "@apollo/client";
-import { LOGIN } from "lib/GraphQL/Queries";
-import { Query } from "generated-types";
 import { useState } from "react";
+import NextLink from "next/link";
+
+import { Query } from "generated-types";
+import { AuthLayout } from "components/layout";
+import { LOGIN } from "lib/GraphQL/Queries";
+import { useDispatchUser } from "src/context/user.global";
 
 const Login = () => {
+  const user = useDispatchUser();
+  const toast = useToast();
+
   const [fetchToken, { loading }] = useLazyQuery<Query>(LOGIN, {
+    onError(error) {
+      toast({
+        title: "Cannot Login.",
+        description: error.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    },
     onCompleted(data) {
-      //
+      user({
+        type: "create",
+        id: data.login.id,
+        email: data.login.email,
+        token: data.login.token,
+        username: data.login.username,
+      });
     },
   });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLoginHandler: React.FormEventHandler<HTMLDivElement> = async (e) => {
+  const handleLogin: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
+
     if (email && password) {
       await fetchToken({
         variables: {
@@ -26,8 +47,9 @@ const Login = () => {
       });
     }
   };
+
   return (
-    <VStack p="5" w="2xl" spacing="5" alignItems="stretch" bg="blue.700" rounded="xl" mx="3" as="form" onSubmit={onLoginHandler}>
+    <VStack p="5" w="2xl" spacing="5" alignItems="stretch" bg="blue.700" rounded="xl" mx="3">
       <HStack>
         <Heading fontSize="xl">Login Page</Heading>
       </HStack>
@@ -41,7 +63,7 @@ const Login = () => {
           <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormControl>
       </VStack>
-      <Button isLoading={loading} loadingText="Submitting" colorScheme="blue">
+      <Button isLoading={loading} loadingText="Submitting" colorScheme="blue" onClick={handleLogin}>
         Submit
       </Button>
       <Text>
