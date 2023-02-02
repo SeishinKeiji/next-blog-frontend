@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { useMemo } from "react";
-import { ApolloClient, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import { ApolloClient, InMemoryCache, InMemoryCacheConfig, NormalizedCacheObject } from "@apollo/client";
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
@@ -27,7 +27,7 @@ function createApolloClient(context?: ResolverContext) {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: createIsomorphLink(context),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache("__APOLLO_STATE__" in window ? (window.__APOLLO_STATE__ as InMemoryCacheConfig) : undefined),
   });
 }
 
