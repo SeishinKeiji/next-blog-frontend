@@ -13,7 +13,7 @@ function createIsomorphLink(context: ResolverContext = {}) {
   if (typeof window === "undefined") {
     const { SchemaLink } = require("@apollo/client/link/schema");
 
-    return new SchemaLink({ schema: "./generated-types.ts", context });
+    return new SchemaLink({ schema: "./schema.gql", context });
   } else {
     const { HttpLink } = require("@apollo/client");
     return new HttpLink({
