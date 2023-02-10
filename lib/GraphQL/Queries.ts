@@ -15,7 +15,7 @@ export const MY_BOOKMARK = gql`
 
 export const GET_POST = gql`
   query GetPost($slug: String!) {
-    GetPost(payload: { slug: $slug }) {
+    getPost(payload: { slug: $slug }) {
       id
       author {
         username
@@ -36,8 +36,8 @@ export const GET_POST = gql`
 `;
 
 export const GET_LIKE = gql`
-  query getLikePost($id: Int!) {
-    LikedPost(payload: { id: $id }) {
+  query GetLikePost($id: Int!) {
+    likedPost(payload: { id: $id }) {
       isLiked
     }
   }
@@ -45,7 +45,7 @@ export const GET_LIKE = gql`
 
 export const GET_ROLE = gql`
   query GetRole($id: Int!) {
-    GetAuthorById(payload: { id: $id }) {
+    getAuthorById(payload: { id: $id }) {
       role
     }
   }
@@ -53,7 +53,7 @@ export const GET_ROLE = gql`
 
 export const LOAD_POSTS = gql`
   query LoadPosts {
-    ShowAllPost {
+    showAllPost {
       id
       title
       slug
@@ -69,7 +69,7 @@ export const LOAD_POSTS = gql`
 
 export const LOAD_POSTS_BY_AUTHOR = gql`
   query LoadPostsByAuthor($id: Int!) {
-    GetAuthorById(payload: { id: $id }) {
+    getAuthorById(payload: { id: $id }) {
       image
       posts {
         id
@@ -83,21 +83,18 @@ export const LOAD_POSTS_BY_AUTHOR = gql`
   }
 `;
 
-export const LOGIN = gql`
-  query Login($email: String!, $password: String!) {
-    login(payload: { email: $email, password: $password }) {
-      id
-      token
-      username
+export const CURRENT_USER = gql`
+  query CurrentUser {
+    loggedInAuthor {
       email
-      image
+      username
     }
   }
 `;
 
 export const SHOW_ALL_USERS = gql`
   query ShowAllUsers {
-    ShowAllAuthor {
+    showAllAuthor {
       id
       username
       email
@@ -108,7 +105,7 @@ export const SHOW_ALL_USERS = gql`
 
 export const SHOW_ALL_TAGS = gql`
   query ShowAllTags {
-    ShowAllTag {
+    showAllTag {
       name
       id
     }

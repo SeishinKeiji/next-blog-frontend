@@ -1,18 +1,18 @@
 import { Button, FormControl, FormLabel, Heading, HStack, Input, Link, Text, useToast, VStack } from "@chakra-ui/react";
-import { useLazyQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import NextLink from "next/link";
 
-import { Query } from "generated-types";
+import { Mutation } from "generated-types";
 import { AuthLayout } from "components/layout";
-import { LOGIN } from "lib/GraphQL/Queries";
-import { useDispatchUser } from "src/context/user.global";
+import { LOGIN } from "lib/GraphQL/Mutations";
+import { withNoAuth } from "lib/auth";
+import { CURRENT_USER } from "lib/GraphQL/Queries";
 
 const Login = () => {
-  const user = useDispatchUser();
   const toast = useToast();
 
-  const [fetchToken, { loading }] = useLazyQuery<Query>(LOGIN, {
+  const [fetchToken, { loading }] = useMutation<Mutation>(LOGIN, {
     onError(error) {
       toast({
         title: "Cannot Login.",
@@ -23,14 +23,9 @@ const Login = () => {
       });
     },
     onCompleted(data) {
-      user({
-        type: "create",
-        id: data.login.id,
-        email: data.login.email,
-        token: data.login.token,
-        username: data.login.username,
-      });
+      console.log(data);
     },
+    fetchPolicy: "no-cache",
   });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,37 +39,48 @@ const Login = () => {
           email,
           password,
         },
+        update: (cache, { data }) => {
+          const user = (({ __typename, image, ...data }) => data)(data!.login);
+          cache.writeQuery({
+            query: CURRENT_USER,
+            data: {
+              email: user.email,
+              username: user.username
+            }
+          })
+        },
       });
     }
   };
 
   return (
-    <VStack p="5" w="2xl" spacing="5" alignItems="stretch" bg="blue.700" rounded="xl" mx="3">
-      <HStack>
-        <Heading fontSize="xl">Login Page</Heading>
-      </HStack>
-      <VStack>
-        <FormControl isRequired>
-          <FormLabel>Email address</FormLabel>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel>Password</FormLabel>
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </FormControl>
+    <AuthLayout title="Login">
+      <VStack p="5" w="2xl" spacing="5" alignItems="stretch" bg="blue.700" rounded="xl" mx="3">
+        <HStack>
+          <Heading fontSize="xl">Login Page</Heading>
+        </HStack>
+        <VStack>
+          <FormControl isRequired>
+            <FormLabel>Email address</FormLabel>
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel>Password</FormLabel>
+            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </FormControl>
+        </VStack>
+        <Button isLoading={loading} loadingText="Submitting" colorScheme="blue" onClick={handleLogin}>
+          Submit
+        </Button>
+        <Text>
+          First time here?{" "}
+          <Link as={NextLink} href="/register">
+            Register now.
+          </Link>
+        </Text>
       </VStack>
-      <Button isLoading={loading} loadingText="Submitting" colorScheme="blue" onClick={handleLogin}>
-        Submit
-      </Button>
-      <Text>
-        First time here?{" "}
-        <Link as={NextLink} href="/register">
-          Register now.
-        </Link>
-      </Text>
-    </VStack>
+    </AuthLayout>
   );
 };
 
-Login.Layout = AuthLayout;
-export default Login;
+export default withNoAuth(Login);

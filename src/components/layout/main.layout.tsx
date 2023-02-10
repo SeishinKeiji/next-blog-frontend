@@ -1,7 +1,8 @@
-import { HStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
+import { Navbar } from "components/navbar";
 import Head from "next/head";
 
-export const AuthLayout: React.FC<React.PropsWithChildren<{ title: string }>> = ({ children, title }) => {
+const MainLayout: React.FC<React.PropsWithChildren<{ title: string }>> = ({ children, title }) => {
   return (
     <>
       <Head>
@@ -10,9 +11,12 @@ export const AuthLayout: React.FC<React.PropsWithChildren<{ title: string }>> = 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HStack position="absolute" width="full" height="100vh" maxW="full" justifyContent="center" alignItems="center">
+      <VStack as={"main"} spacing={5}>
+        <Navbar />
         {children}
-      </HStack>
+      </VStack>
     </>
   );
 };
+
+export default MainLayout;
