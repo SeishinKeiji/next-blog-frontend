@@ -1,4 +1,4 @@
-import { CardHeader, Flex, Avatar, Heading, IconButton, CardBody, CardFooter, Button, Box, Card, Text, Image, HStack, TagLeftIcon, TagLabel, Tag } from "@chakra-ui/react";
+import { CardHeader, Flex, Avatar, Heading, IconButton, CardBody, CardFooter, Button, Box, Card, Text, Image, HStack, TagLeftIcon, TagLabel, Tag, VStack } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiChat, BiLike, BiBookmark } from "react-icons/bi";
 import { HiHashtag } from "react-icons/hi";
@@ -24,21 +24,23 @@ export const TopCardArticle = () => {
         <Text as={"h1"} fontSize={"xl"} fontWeight={"bold"}>
           Some Title that awesome!
         </Text>
-        <Text>With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.</Text>
-        <HStack spacing={2}>
-          <Tag size={"sm"} variant="subtle" colorScheme="cyan">
-            <TagLeftIcon boxSize="12px" as={HiHashtag} />
-            <TagLabel>Rust</TagLabel>
-          </Tag>
-          <Tag size={"sm"} variant="subtle" colorScheme="cyan">
-            <TagLeftIcon boxSize="12px" as={HiHashtag} />
-            <TagLabel>Microservice</TagLabel>
-          </Tag>
-          <Tag size={"sm"} variant="subtle" colorScheme="cyan">
-            <TagLeftIcon boxSize="12px" as={HiHashtag} />
-            <TagLabel>Docker</TagLabel>
-          </Tag>
-        </HStack>
+        <VStack gap={3} alignItems={"start"}>
+          <Text>With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.</Text>
+          <HStack spacing={2}>
+            <Tag size={"sm"} variant="subtle" colorScheme="cyan">
+              <TagLeftIcon boxSize="12px" as={HiHashtag} />
+              <TagLabel>Rust</TagLabel>
+            </Tag>
+            <Tag size={"sm"} variant="subtle" colorScheme="cyan">
+              <TagLeftIcon boxSize="12px" as={HiHashtag} />
+              <TagLabel>Microservice</TagLabel>
+            </Tag>
+            <Tag size={"sm"} variant="subtle" colorScheme="cyan">
+              <TagLeftIcon boxSize="12px" as={HiHashtag} />
+              <TagLabel>Docker</TagLabel>
+            </Tag>
+          </HStack>
+        </VStack>
       </CardBody>
       <Image objectFit="cover" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Chakra UI" />
 
@@ -84,7 +86,7 @@ export const CardArticle = () => {
           <IconButton variant="ghost" colorScheme="gray" aria-label="See menu" icon={<BsThreeDotsVertical />} />
         </Flex>
       </CardHeader>
-      <CardBody>
+      <CardBody display={"flex"} flexDirection={"column"} gap={5}>
         <Text as={"h1"} fontSize={"xl"} fontWeight={"bold"}>
           Some Title that awesome!
         </Text>

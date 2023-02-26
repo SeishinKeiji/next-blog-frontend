@@ -4,11 +4,15 @@ import MainLayout from "components/layout/main.layout";
 import { Query } from "generated-types";
 import { addApolloState, initializeApollo } from "lib/GraphQL/apollo";
 import { CURRENT_USER } from "lib/GraphQL/Queries";
+import { useRouter } from "next/router";
 
 const Profile = () => {
+  const router = useRouter();
+  const { username } = router.query;
+
   return (
-    <MainLayout title="Profile">
-      <Heading>Username</Heading>
+    <MainLayout title={username as string}>
+      <Heading>Profile page: {username}</Heading>
     </MainLayout>
   );
 };

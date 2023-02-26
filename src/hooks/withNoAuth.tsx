@@ -11,8 +11,8 @@ export const withNoAuth = (WrappedComponent: React.FC) => {
     const { data, loading } = useQuery<Query>(CURRENT_USER, { fetchPolicy: "cache-and-network" });
 
     useEffect(() => {
-      if (data && data.loggedInAuthor.email) {
-        Router.push("/profile");
+      if (data && data.loggedInAuthor.username) {
+        Router.push(`/${data.loggedInAuthor.username}`);
       }
     }, [data]);
 
