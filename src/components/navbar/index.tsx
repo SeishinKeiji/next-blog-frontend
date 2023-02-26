@@ -2,14 +2,16 @@
 import { Avatar, Flex, HStack, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spacer, Tab, TabList, Tabs, Button, Portal } from "@chakra-ui/react";
 import { RiSearchLine } from "react-icons/ri";
 import { MdLogin } from "react-icons/md";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 import { CURRENT_USER } from "lib/GraphQL/Queries";
-import { Query } from "generated-types";
+import { Mutation, Query } from "generated-types";
 import NextLink from "next/link";
+import { LOGOUT } from "lib/GraphQL/Mutations";
 
 export const Navbar = () => {
   const { data } = useQuery<Query>(CURRENT_USER);
+  const [logout] = useMutation<Mutation>(LOGOUT);
 
   return (
     <Flex as={"nav"} bg={"whiteAlpha.200"} width={"full"} p={"3"}>
@@ -42,7 +44,7 @@ export const Navbar = () => {
                 {/* show profile user like post, bookmarked, etc... if user role is member and show manager page if user role is admin */}
                 <MenuItem>Dashboard</MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => (document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT")}>Logout</MenuItem>
+                <MenuItem onClick={() => logout()}>Logout</MenuItem>
               </MenuList>
             </Portal>
           </Menu>
