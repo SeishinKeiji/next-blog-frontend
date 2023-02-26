@@ -2,9 +2,9 @@ import { GetServerSidePropsContext } from "next";
 import { Heading } from "@chakra-ui/react";
 import MainLayout from "components/layout/main.layout";
 import { Query } from "generated-types";
-import { withAuth } from "lib/auth";
 import { addApolloState, initializeApollo } from "lib/GraphQL/apollo";
-import { MY_BOOKMARK } from "lib/GraphQL/Queries";
+import { CURRENT_USER } from "lib/GraphQL/Queries";
+
 const Profile = () => {
   return (
     <MainLayout title="Profile">
@@ -18,7 +18,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   try {
     await client.query<Query>({
-      query: MY_BOOKMARK,
+      query: CURRENT_USER,
     });
 
     return addApolloState(client, {
@@ -28,11 +28,11 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return {
       props: {},
       redirect: {
-        destination: "/signin",
+        destination: "/login",
         permanent: false,
       },
     };
   }
 };
 
-export default withAuth(Profile);
+export default Profile;

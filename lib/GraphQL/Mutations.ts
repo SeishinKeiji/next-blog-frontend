@@ -1,17 +1,9 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_POST = gql`
-  mutation CreatePost($content: String!, $tags: [Int!], $slug: String!, $title: String!) {
+  mutation CreatePost($content: String!, $tags: [String!], $slug: String!, $title: String!) {
     createPost(payload: { title: $title, content: $content, tags: $tags, slug: $slug }) {
       slug
-    }
-  }
-`;
-
-export const BOOKMARK_POST = gql`
-  mutation BookmarkPost($id: Int!) {
-    bookmarkPost(payload: { idPost: $id }) {
-      isBookmarked
     }
   }
 `;
@@ -21,21 +13,20 @@ export const LOGIN = gql`
     login(payload: { email: $email, password: $password }) {
       username
       email
-      image
     }
   }
 `;
 
 export const LIKE_POST = gql`
   mutation LikePost($id: Int!) {
-    likePost(payload: { idPost: $id }) {
+    likePost(payload: { id: $id }) {
       likes
     }
   }
 `;
 
 export const EDIT_POST = gql`
-  mutation UpdatePost($content: String!, $tags: [Int!], $slug: String!, $title: String!, $id: Int!) {
+  mutation UpdatePost($content: String!, $tags: [String!], $slug: String!, $title: String!, $id: Int!) {
     updatePost(payload: { title: $title, content: $content, tags: $tags, slug: $slug, id: $id }) {
       slug
     }
@@ -46,14 +37,6 @@ export const DELETE_POST = gql`
   mutation DeletePost($id: Int!) {
     deletePost(payload: { id: $id }) {
       success
-    }
-  }
-`;
-
-export const UPLOAD_IMAGE = gql`
-  mutation UploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      url
     }
   }
 `;

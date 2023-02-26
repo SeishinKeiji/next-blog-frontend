@@ -6,7 +6,7 @@ import NextLink from "next/link";
 import { Mutation } from "generated-types";
 import { AuthLayout } from "components/layout";
 import { LOGIN } from "lib/GraphQL/Mutations";
-import { withNoAuth } from "lib/auth";
+import { withNoAuth } from "src/hooks/withNoAuth";
 import { CURRENT_USER } from "lib/GraphQL/Queries";
 
 const Login = () => {
@@ -21,9 +21,6 @@ const Login = () => {
         duration: 9000,
         isClosable: true,
       });
-    },
-    onCompleted(data) {
-      console.log(data);
     },
     fetchPolicy: "no-cache",
   });
@@ -44,10 +41,12 @@ const Login = () => {
           cache.writeQuery({
             query: CURRENT_USER,
             data: {
-              email: user.email,
-              username: user.username
-            }
-          })
+              loggedInAuthor: {
+                email: user.email,
+                username: user.username,
+              },
+            },
+          });
         },
       });
     }

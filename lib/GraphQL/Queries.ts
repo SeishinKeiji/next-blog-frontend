@@ -1,18 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const MY_BOOKMARK = gql`
-  query MyBookmark {
-    getMyBookmark {
-      id
-      title
-      author {
-        id
-        username
-      }
-    }
-  }
-`;
-
 export const GET_POST = gql`
   query GetPost($slug: String!) {
     getPost(payload: { slug: $slug }) {
@@ -22,7 +9,9 @@ export const GET_POST = gql`
         image
       }
       title
-      likes
+      like {
+        likes
+      }
       content
       slug
       createdAt
@@ -35,34 +24,10 @@ export const GET_POST = gql`
   }
 `;
 
-export const GET_LIKE = gql`
-  query GetLikePost($id: Int!) {
-    likedPost(payload: { id: $id }) {
-      isLiked
-    }
-  }
-`;
-
-export const GET_ROLE = gql`
-  query GetRole($id: Int!) {
-    getAuthorById(payload: { id: $id }) {
-      role
-    }
-  }
-`;
-
 export const LOAD_POSTS = gql`
   query LoadPosts {
     showAllPost {
-      id
       title
-      slug
-      tags {
-        name
-      }
-      author {
-        image
-      }
     }
   }
 `;
@@ -98,7 +63,6 @@ export const SHOW_ALL_USERS = gql`
       id
       username
       email
-      role
     }
   }
 `;

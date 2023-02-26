@@ -20,20 +20,21 @@ export type Scalars = {
 /** Author model */
 export type Author = {
   __typename?: 'Author';
+  bookmarks: Array<Bookmark>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['Float'];
   image?: Maybe<Scalars['String']>;
   posts: Array<Post>;
-  role: Roles;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
 };
 
 /** Like Post Model */
-export type BookmarkPost = {
-  __typename?: 'BookmarkPost';
-  isBookmarked: Scalars['Boolean'];
+export type Bookmark = {
+  __typename?: 'Bookmark';
+  bookmarkedPosts: Array<Post>;
+  bookmarks: Scalars['Float'];
 };
 
 export type CreateAuthorInput = {
@@ -46,16 +47,12 @@ export type CreatePostInput = {
   content: Scalars['String'];
   draft?: InputMaybe<Scalars['Boolean']>;
   slug?: InputMaybe<Scalars['String']>;
-  tags?: InputMaybe<Array<Scalars['Int']>>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
   title: Scalars['String'];
 };
 
 export type CreateTagInput = {
   name: Scalars['String'];
-};
-
-export type DeletePostInput = {
-  id: Scalars['Int'];
 };
 
 export type DeleteTagInput = {
@@ -74,7 +71,7 @@ export type GetByTagInput = {
   name: Scalars['String'];
 };
 
-export type GetLikePost = {
+export type GetPostByIdInput = {
   id: Scalars['Int'];
 };
 
@@ -82,22 +79,10 @@ export type GetPostBySlugInput = {
   slug: Scalars['String'];
 };
 
-export type IdPostInput = {
-  idPost: Scalars['Int'];
-};
-
-/** Image class-type */
-export type Image = {
-  __typename?: 'Image';
-  delete: Scalars['String'];
-  status: Scalars['Float'];
-  url: Scalars['String'];
-};
-
 /** Like Post Model */
-export type LikePost = {
-  __typename?: 'LikePost';
-  isLiked: Scalars['Boolean'];
+export type Like = {
+  __typename?: 'Like';
+  likes: Scalars['Int'];
 };
 
 export type LoginInput = {
@@ -108,7 +93,6 @@ export type LoginInput = {
 export type LoginType = {
   __typename?: 'LoginType';
   email: Scalars['String'];
-  expiresIn: Scalars['String'];
   image?: Maybe<Scalars['String']>;
   username: Scalars['String'];
 };
@@ -120,14 +104,14 @@ export type MessageType = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  bookmarkPost: BookmarkPost;
+  bookmarkPost: Bookmark;
   createAccount: Author;
   createPost: Post;
   createTag: Tag;
   deleteAuthor: ResponseType;
   deletePost: ResponseType;
   deleteTag: ResponseType;
-  likePost: Post;
+  likePost: Like;
   login: LoginType;
   resetPassword: MessageType;
   unregisterUser: MessageType;
@@ -135,13 +119,12 @@ export type Mutation = {
   updatePassword: MessageType;
   updatePost: Post;
   updateTag: Tag;
-  uploadFile: Image;
   verifyEmail: MessageType;
 };
 
 
 export type MutationBookmarkPostArgs = {
-  payload: IdPostInput;
+  payload: GetPostByIdInput;
 };
 
 
@@ -166,7 +149,7 @@ export type MutationDeleteAuthorArgs = {
 
 
 export type MutationDeletePostArgs = {
-  payload: DeletePostInput;
+  payload: GetPostByIdInput;
 };
 
 
@@ -176,7 +159,7 @@ export type MutationDeleteTagArgs = {
 
 
 export type MutationLikePostArgs = {
-  payload: IdPostInput;
+  payload: GetPostByIdInput;
 };
 
 
@@ -216,11 +199,6 @@ export type MutationUpdateTagArgs = {
 };
 
 
-export type MutationUploadFileArgs = {
-  file: Scalars['Upload'];
-};
-
-
 export type MutationVerifyEmailArgs = {
   payload: VerifyEmailInput;
 };
@@ -229,11 +207,10 @@ export type MutationVerifyEmailArgs = {
 export type Post = {
   __typename?: 'Post';
   author: Author;
-  bookmark: BookmarkPost;
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
-  likes: Scalars['Int'];
+  like: Like;
   slug: Scalars['String'];
   tags: Array<Tag>;
   title: Scalars['String'];
@@ -244,10 +221,7 @@ export type Query = {
   __typename?: 'Query';
   forgotPassword: MessageType;
   getAuthorById: Author;
-  getMyBookmark: Array<Post>;
   getPost: Post;
-  isPostBookmarked: BookmarkPost;
-  likedPost?: Maybe<LikePost>;
   loggedInAuthor: Author;
   showAllAuthor: Array<Author>;
   showAllPost: Array<Post>;
@@ -268,16 +242,6 @@ export type QueryGetAuthorByIdArgs = {
 
 export type QueryGetPostArgs = {
   payload: GetPostBySlugInput;
-};
-
-
-export type QueryIsPostBookmarkedArgs = {
-  payload: IdPostInput;
-};
-
-
-export type QueryLikedPostArgs = {
-  payload: GetLikePost;
 };
 
 
@@ -320,7 +284,7 @@ export type UpdatePostInput = {
   draft?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['Int'];
   slug?: InputMaybe<Scalars['String']>;
-  tags?: InputMaybe<Array<Scalars['Int']>>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -333,27 +297,15 @@ export type VerifyEmailInput = {
   code: Scalars['String'];
 };
 
-export enum Roles {
-  Admin = 'admin',
-  Member = 'member'
-}
-
 export type CreatePostMutationVariables = Exact<{
   content: Scalars['String'];
-  tags?: InputMaybe<Array<Scalars['Int']> | Scalars['Int']>;
+  tags?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
   slug: Scalars['String'];
   title: Scalars['String'];
 }>;
 
 
 export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', slug: string } };
-
-export type BookmarkPostMutationVariables = Exact<{
-  id: Scalars['Int'];
-}>;
-
-
-export type BookmarkPostMutation = { __typename?: 'Mutation', bookmarkPost: { __typename?: 'BookmarkPost', isBookmarked: boolean } };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -368,11 +320,11 @@ export type LikePostMutationVariables = Exact<{
 }>;
 
 
-export type LikePostMutation = { __typename?: 'Mutation', likePost: { __typename?: 'Post', likes: number } };
+export type LikePostMutation = { __typename?: 'Mutation', likePost: { __typename?: 'Like', likes: number } };
 
 export type UpdatePostMutationVariables = Exact<{
   content: Scalars['String'];
-  tags?: InputMaybe<Array<Scalars['Int']> | Scalars['Int']>;
+  tags?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
   slug: Scalars['String'];
   title: Scalars['String'];
   id: Scalars['Int'];
@@ -387,13 +339,6 @@ export type DeletePostMutationVariables = Exact<{
 
 
 export type DeletePostMutation = { __typename?: 'Mutation', deletePost: { __typename?: 'ResponseType', success: boolean } };
-
-export type UploadFileMutationVariables = Exact<{
-  file: Scalars['Upload'];
-}>;
-
-
-export type UploadFileMutation = { __typename?: 'Mutation', uploadFile: { __typename?: 'Image', url: string } };
 
 export type CreateAuthorMutationVariables = Exact<{
   username: Scalars['String'];
@@ -442,31 +387,12 @@ export type DeleteTagMutationVariables = Exact<{
 
 export type DeleteTagMutation = { __typename?: 'Mutation', deleteTag: { __typename?: 'ResponseType', success: boolean } };
 
-export type MyBookmarkQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MyBookmarkQuery = { __typename?: 'Query', getMyBookmark: Array<{ __typename?: 'Post', id: number, title: string, author: { __typename?: 'Author', id: number, username: string } }> };
-
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', getPost: { __typename?: 'Post', id: number, title: string, likes: number, content: string, slug: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', username: string, image?: string | null }, tags: Array<{ __typename?: 'Tag', id: number, name: string }> } };
-
-export type GetLikePostQueryVariables = Exact<{
-  id: Scalars['Int'];
-}>;
-
-
-export type GetLikePostQuery = { __typename?: 'Query', likedPost?: { __typename?: 'LikePost', isLiked: boolean } | null };
-
-export type GetRoleQueryVariables = Exact<{
-  id: Scalars['Int'];
-}>;
-
-
-export type GetRoleQuery = { __typename?: 'Query', getAuthorById: { __typename?: 'Author', role: Roles } };
+export type GetPostQuery = { __typename?: 'Query', getPost: { __typename?: 'Post', id: number, title: string, content: string, slug: string, createdAt: any, updatedAt: any, author: { __typename?: 'Author', username: string, image?: string | null }, like: { __typename?: 'Like', likes: number }, tags: Array<{ __typename?: 'Tag', id: number, name: string }> } };
 
 export type LoadPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -488,7 +414,7 @@ export type CurrentUserQuery = { __typename?: 'Query', loggedInAuthor: { __typen
 export type ShowAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ShowAllUsersQuery = { __typename?: 'Query', showAllAuthor: Array<{ __typename?: 'Author', id: number, username: string, email: string, role: Roles }> };
+export type ShowAllUsersQuery = { __typename?: 'Query', showAllAuthor: Array<{ __typename?: 'Author', id: number, username: string, email: string }> };
 
 export type ShowAllTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -497,7 +423,7 @@ export type ShowAllTagsQuery = { __typename?: 'Query', showAllTag: Array<{ __typ
 
 
 export const CreatePostDocument = gql`
-    mutation CreatePost($content: String!, $tags: [Int!], $slug: String!, $title: String!) {
+    mutation CreatePost($content: String!, $tags: [String!], $slug: String!, $title: String!) {
   createPost(
     payload: {title: $title, content: $content, tags: $tags, slug: $slug}
   ) {
@@ -534,39 +460,6 @@ export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
-export const BookmarkPostDocument = gql`
-    mutation BookmarkPost($id: Int!) {
-  bookmarkPost(payload: {idPost: $id}) {
-    isBookmarked
-  }
-}
-    `;
-export type BookmarkPostMutationFn = Apollo.MutationFunction<BookmarkPostMutation, BookmarkPostMutationVariables>;
-
-/**
- * __useBookmarkPostMutation__
- *
- * To run a mutation, you first call `useBookmarkPostMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useBookmarkPostMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [bookmarkPostMutation, { data, loading, error }] = useBookmarkPostMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useBookmarkPostMutation(baseOptions?: Apollo.MutationHookOptions<BookmarkPostMutation, BookmarkPostMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<BookmarkPostMutation, BookmarkPostMutationVariables>(BookmarkPostDocument, options);
-      }
-export type BookmarkPostMutationHookResult = ReturnType<typeof useBookmarkPostMutation>;
-export type BookmarkPostMutationResult = Apollo.MutationResult<BookmarkPostMutation>;
-export type BookmarkPostMutationOptions = Apollo.BaseMutationOptions<BookmarkPostMutation, BookmarkPostMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(payload: {email: $email, password: $password}) {
@@ -605,7 +498,7 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const LikePostDocument = gql`
     mutation LikePost($id: Int!) {
-  likePost(payload: {idPost: $id}) {
+  likePost(payload: {id: $id}) {
     likes
   }
 }
@@ -637,7 +530,7 @@ export type LikePostMutationHookResult = ReturnType<typeof useLikePostMutation>;
 export type LikePostMutationResult = Apollo.MutationResult<LikePostMutation>;
 export type LikePostMutationOptions = Apollo.BaseMutationOptions<LikePostMutation, LikePostMutationVariables>;
 export const UpdatePostDocument = gql`
-    mutation UpdatePost($content: String!, $tags: [Int!], $slug: String!, $title: String!, $id: Int!) {
+    mutation UpdatePost($content: String!, $tags: [String!], $slug: String!, $title: String!, $id: Int!) {
   updatePost(
     payload: {title: $title, content: $content, tags: $tags, slug: $slug, id: $id}
   ) {
@@ -708,39 +601,6 @@ export function useDeletePostMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeletePostMutationHookResult = ReturnType<typeof useDeletePostMutation>;
 export type DeletePostMutationResult = Apollo.MutationResult<DeletePostMutation>;
 export type DeletePostMutationOptions = Apollo.BaseMutationOptions<DeletePostMutation, DeletePostMutationVariables>;
-export const UploadFileDocument = gql`
-    mutation UploadFile($file: Upload!) {
-  uploadFile(file: $file) {
-    url
-  }
-}
-    `;
-export type UploadFileMutationFn = Apollo.MutationFunction<UploadFileMutation, UploadFileMutationVariables>;
-
-/**
- * __useUploadFileMutation__
- *
- * To run a mutation, you first call `useUploadFileMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUploadFileMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [uploadFileMutation, { data, loading, error }] = useUploadFileMutation({
- *   variables: {
- *      file: // value for 'file'
- *   },
- * });
- */
-export function useUploadFileMutation(baseOptions?: Apollo.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UploadFileMutation, UploadFileMutationVariables>(UploadFileDocument, options);
-      }
-export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutation>;
-export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>;
-export type UploadFileMutationOptions = Apollo.BaseMutationOptions<UploadFileMutation, UploadFileMutationVariables>;
 export const CreateAuthorDocument = gql`
     mutation CreateAuthor($username: String!, $password: String!, $email: String!) {
   createAccount(
@@ -949,45 +809,6 @@ export function useDeleteTagMutation(baseOptions?: Apollo.MutationHookOptions<De
 export type DeleteTagMutationHookResult = ReturnType<typeof useDeleteTagMutation>;
 export type DeleteTagMutationResult = Apollo.MutationResult<DeleteTagMutation>;
 export type DeleteTagMutationOptions = Apollo.BaseMutationOptions<DeleteTagMutation, DeleteTagMutationVariables>;
-export const MyBookmarkDocument = gql`
-    query MyBookmark {
-  getMyBookmark {
-    id
-    title
-    author {
-      id
-      username
-    }
-  }
-}
-    `;
-
-/**
- * __useMyBookmarkQuery__
- *
- * To run a query within a React component, call `useMyBookmarkQuery` and pass it any options that fit your needs.
- * When your component renders, `useMyBookmarkQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMyBookmarkQuery({
- *   variables: {
- *   },
- * });
- */
-export function useMyBookmarkQuery(baseOptions?: Apollo.QueryHookOptions<MyBookmarkQuery, MyBookmarkQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyBookmarkQuery, MyBookmarkQueryVariables>(MyBookmarkDocument, options);
-      }
-export function useMyBookmarkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyBookmarkQuery, MyBookmarkQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyBookmarkQuery, MyBookmarkQueryVariables>(MyBookmarkDocument, options);
-        }
-export type MyBookmarkQueryHookResult = ReturnType<typeof useMyBookmarkQuery>;
-export type MyBookmarkLazyQueryHookResult = ReturnType<typeof useMyBookmarkLazyQuery>;
-export type MyBookmarkQueryResult = Apollo.QueryResult<MyBookmarkQuery, MyBookmarkQueryVariables>;
 export const GetPostDocument = gql`
     query GetPost($slug: String!) {
   getPost(payload: {slug: $slug}) {
@@ -997,7 +818,9 @@ export const GetPostDocument = gql`
       image
     }
     title
-    likes
+    like {
+      likes
+    }
     content
     slug
     createdAt
@@ -1037,76 +860,6 @@ export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
-export const GetLikePostDocument = gql`
-    query GetLikePost($id: Int!) {
-  likedPost(payload: {id: $id}) {
-    isLiked
-  }
-}
-    `;
-
-/**
- * __useGetLikePostQuery__
- *
- * To run a query within a React component, call `useGetLikePostQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLikePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLikePostQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetLikePostQuery(baseOptions: Apollo.QueryHookOptions<GetLikePostQuery, GetLikePostQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLikePostQuery, GetLikePostQueryVariables>(GetLikePostDocument, options);
-      }
-export function useGetLikePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLikePostQuery, GetLikePostQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLikePostQuery, GetLikePostQueryVariables>(GetLikePostDocument, options);
-        }
-export type GetLikePostQueryHookResult = ReturnType<typeof useGetLikePostQuery>;
-export type GetLikePostLazyQueryHookResult = ReturnType<typeof useGetLikePostLazyQuery>;
-export type GetLikePostQueryResult = Apollo.QueryResult<GetLikePostQuery, GetLikePostQueryVariables>;
-export const GetRoleDocument = gql`
-    query GetRole($id: Int!) {
-  getAuthorById(payload: {id: $id}) {
-    role
-  }
-}
-    `;
-
-/**
- * __useGetRoleQuery__
- *
- * To run a query within a React component, call `useGetRoleQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRoleQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRoleQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetRoleQuery(baseOptions: Apollo.QueryHookOptions<GetRoleQuery, GetRoleQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRoleQuery, GetRoleQueryVariables>(GetRoleDocument, options);
-      }
-export function useGetRoleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRoleQuery, GetRoleQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRoleQuery, GetRoleQueryVariables>(GetRoleDocument, options);
-        }
-export type GetRoleQueryHookResult = ReturnType<typeof useGetRoleQuery>;
-export type GetRoleLazyQueryHookResult = ReturnType<typeof useGetRoleLazyQuery>;
-export type GetRoleQueryResult = Apollo.QueryResult<GetRoleQuery, GetRoleQueryVariables>;
 export const LoadPostsDocument = gql`
     query LoadPosts {
   showAllPost {
@@ -1233,7 +986,6 @@ export const ShowAllUsersDocument = gql`
     id
     username
     email
-    role
   }
 }
     `;

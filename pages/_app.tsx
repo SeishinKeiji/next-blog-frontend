@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
+
 import { useApollo } from "lib/GraphQL/apollo";
 import theme from "theme";
 
