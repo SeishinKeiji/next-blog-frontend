@@ -5,6 +5,7 @@ import { Query } from "generated-types";
 import { addApolloState, initializeApollo } from "lib/GraphQL/apollo";
 import { CURRENT_USER } from "lib/GraphQL/Queries";
 import { useRouter } from "next/router";
+import { withWrapper } from "src/hooks/withWrapper";
 
 const Profile = () => {
   const router = useRouter();
@@ -39,4 +40,4 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   }
 };
 
-export default Profile;
+export default withWrapper(Profile, true);

@@ -44,14 +44,14 @@ export const EDIT_POST = gql`
 export const DELETE_POST = gql`
   mutation DeletePost($id: Int!) {
     deletePost(payload: { id: $id }) {
-      success
+      message
     }
   }
 `;
 
 export const REGISTER = gql`
-  mutation CreateAuthor($username: String!, $password: String!, $email: String!) {
-    createAccount(payload: { username: $username, password: $password, email: $email }) {
+  mutation CreateAuthor($name: String!, $username: String!, $password: String!, $email: String!) {
+    createAccount(payload: { name: $name, username: $username, password: $password, email: $email }) {
       email
     }
   }
@@ -87,7 +87,7 @@ export const UPDATE_PROFILE = gql`
 export const DELETE_USER = gql`
   mutation DeleteAuthor($id: Int!) {
     deleteAuthor(payload: { id: $id }) {
-      success
+      message
     }
   }
 `;
@@ -95,7 +95,7 @@ export const DELETE_USER = gql`
 export const DELETE_TAG = gql`
   mutation DeleteTag($id: Int!) {
     deleteTag(payload: { id: $id }) {
-      success
+      message
     }
   }
 `;

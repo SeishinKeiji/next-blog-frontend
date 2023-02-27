@@ -9,7 +9,7 @@ import NextLink from "next/link";
 import { LOGOUT } from "lib/GraphQL/Mutations";
 
 export const Navbar = () => {
-  const { data } = useQuery<Query>(CURRENT_USER);
+  const { data, client } = useQuery<Query>(CURRENT_USER);
   const [logout] = useMutation<Mutation>(LOGOUT);
 
   return (
@@ -40,8 +40,8 @@ export const Navbar = () => {
                 <Portal>
                   <MenuList>
                     <MenuItem as={NextLink} href={`/${data.loggedInAuthor.username}`}>
-                      Ahmad Gani <br />
-                      @ahmadxgani
+                      {data.loggedInAuthor.name}
+                      <br />@{data.loggedInAuthor.username}
                     </MenuItem>
                     <MenuDivider />
                     <MenuItem as={NextLink} href="/settings">
@@ -51,7 +51,14 @@ export const Navbar = () => {
                       Dashboard
                     </MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        logout();
+                        client.resetStore();
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
                   </MenuList>
                 </Portal>
               </Menu>

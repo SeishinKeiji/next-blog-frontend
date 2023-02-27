@@ -6,15 +6,19 @@ import { Heading } from "@chakra-ui/react";
 import { Query } from "generated-types";
 import { CURRENT_USER } from "../../lib/GraphQL/Queries";
 
-export const withNoAuth = (WrappedComponent: React.FC) => {
+export const withWrapper = (WrappedComponent: React.FC, auth?: boolean) => {
   const HOC: React.FC = (props) => {
-    const { data, loading } = useQuery<Query>(CURRENT_USER, { fetchPolicy: "cache-and-network" });
+    const { data, loading, error } = useQuery<Query>(CURRENT_USER, { fetchPolicy: "cache-and-network" });
 
     useEffect(() => {
-      if (data && data.loggedInAuthor.username) {
-        Router.push(`/${data.loggedInAuthor.username}`);
+      if (auth && error) {
+        Router.push("/login");
+      } else {
+        if (data && data.loggedInAuthor.username) {
+          Router.push(`/${data.loggedInAuthor.username}`);
+        }
       }
-    }, [data]);
+    }, [data, error]);
 
     if (loading) return <Heading>Loading...</Heading>;
 

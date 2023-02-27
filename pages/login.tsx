@@ -6,7 +6,7 @@ import NextLink from "next/link";
 import { Mutation } from "generated-types";
 import { AuthLayout } from "components/layout";
 import { LOGIN } from "lib/GraphQL/Mutations";
-import { withNoAuth } from "src/hooks/withNoAuth";
+import { withWrapper } from "src/hooks/withWrapper";
 import { CURRENT_USER } from "lib/GraphQL/Queries";
 
 const Login = () => {
@@ -41,10 +41,7 @@ const Login = () => {
           cache.writeQuery({
             query: CURRENT_USER,
             data: {
-              loggedInAuthor: {
-                email: user.email,
-                username: user.username,
-              },
+              loggedInAuthor: { ...user },
             },
           });
         },
@@ -82,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default withNoAuth(Login);
+export default withWrapper(Login);

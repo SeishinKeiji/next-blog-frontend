@@ -25,6 +25,7 @@ export type Author = {
   email: Scalars['String'];
   id: Scalars['Float'];
   image?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
   posts: Array<Post>;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
@@ -39,6 +40,7 @@ export type Bookmark = {
 
 export type CreateAuthorInput = {
   email: Scalars['String'];
+  name: Scalars['String'];
   password: Scalars['String'];
   username: Scalars['String'];
 };
@@ -97,11 +99,6 @@ export type LoginType = {
   username: Scalars['String'];
 };
 
-export type MessageType = {
-  __typename?: 'MessageType';
-  message: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   bookmarkPost: Bookmark;
@@ -113,13 +110,14 @@ export type Mutation = {
   deleteTag: ResponseType;
   likePost: Like;
   login: LoginType;
-  resetPassword: MessageType;
-  unregisterUser: MessageType;
+  logout: ResponseType;
+  resetPassword: ResponseType;
+  unregisterUser: ResponseType;
   updateAuthor: Author;
-  updatePassword: MessageType;
+  updatePassword: ResponseType;
   updatePost: Post;
   updateTag: Tag;
-  verifyEmail: MessageType;
+  verifyEmail: ResponseType;
 };
 
 
@@ -219,7 +217,7 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
-  forgotPassword: MessageType;
+  forgotPassword: ResponseType;
   getAuthorById: Author;
   getPost: Post;
   loggedInAuthor: Author;
@@ -258,7 +256,7 @@ export type ResetPasswordInput = {
 /** Return Response Type */
 export type ResponseType = {
   __typename?: 'ResponseType';
-  success: Scalars['Boolean'];
+  message: Scalars['String'];
 };
 
 /** Tag model */
@@ -271,6 +269,7 @@ export type Tag = {
 
 export type UpdateAuthorInput = {
   id: Scalars['Int'];
+  name?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
 };
 
@@ -307,13 +306,18 @@ export type CreatePostMutationVariables = Exact<{
 
 export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', slug: string } };
 
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'ResponseType', message: string } };
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginType', username: string, email: string, image?: string | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginType', username: string, email: string } };
 
 export type LikePostMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -338,9 +342,10 @@ export type DeletePostMutationVariables = Exact<{
 }>;
 
 
-export type DeletePostMutation = { __typename?: 'Mutation', deletePost: { __typename?: 'ResponseType', success: boolean } };
+export type DeletePostMutation = { __typename?: 'Mutation', deletePost: { __typename?: 'ResponseType', message: string } };
 
 export type CreateAuthorMutationVariables = Exact<{
+  name: Scalars['String'];
   username: Scalars['String'];
   password: Scalars['String'];
   email: Scalars['String'];
@@ -378,14 +383,14 @@ export type DeleteAuthorMutationVariables = Exact<{
 }>;
 
 
-export type DeleteAuthorMutation = { __typename?: 'Mutation', deleteAuthor: { __typename?: 'ResponseType', success: boolean } };
+export type DeleteAuthorMutation = { __typename?: 'Mutation', deleteAuthor: { __typename?: 'ResponseType', message: string } };
 
 export type DeleteTagMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
-export type DeleteTagMutation = { __typename?: 'Mutation', deleteTag: { __typename?: 'ResponseType', success: boolean } };
+export type DeleteTagMutation = { __typename?: 'Mutation', deleteTag: { __typename?: 'ResponseType', message: string } };
 
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -397,7 +402,7 @@ export type GetPostQuery = { __typename?: 'Query', getPost: { __typename?: 'Post
 export type LoadPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LoadPostsQuery = { __typename?: 'Query', showAllPost: Array<{ __typename?: 'Post', id: number, title: string, slug: string, tags: Array<{ __typename?: 'Tag', name: string }>, author: { __typename?: 'Author', image?: string | null } }> };
+export type LoadPostsQuery = { __typename?: 'Query', showAllPost: Array<{ __typename?: 'Post', title: string }> };
 
 export type LoadPostsByAuthorQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -460,12 +465,43 @@ export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export const LogoutDocument = gql`
+    mutation Logout {
+  logout {
+    message
+  }
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+
+/**
+ * __useLogoutMutation__
+ *
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+      }
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(payload: {email: $email, password: $password}) {
     username
     email
-    image
   }
 }
     `;
@@ -571,7 +607,7 @@ export type UpdatePostMutationOptions = Apollo.BaseMutationOptions<UpdatePostMut
 export const DeletePostDocument = gql`
     mutation DeletePost($id: Int!) {
   deletePost(payload: {id: $id}) {
-    success
+    message
   }
 }
     `;
@@ -602,9 +638,9 @@ export type DeletePostMutationHookResult = ReturnType<typeof useDeletePostMutati
 export type DeletePostMutationResult = Apollo.MutationResult<DeletePostMutation>;
 export type DeletePostMutationOptions = Apollo.BaseMutationOptions<DeletePostMutation, DeletePostMutationVariables>;
 export const CreateAuthorDocument = gql`
-    mutation CreateAuthor($username: String!, $password: String!, $email: String!) {
+    mutation CreateAuthor($name: String!, $username: String!, $password: String!, $email: String!) {
   createAccount(
-    payload: {username: $username, password: $password, email: $email}
+    payload: {name: $name, username: $username, password: $password, email: $email}
   ) {
     email
   }
@@ -625,6 +661,7 @@ export type CreateAuthorMutationFn = Apollo.MutationFunction<CreateAuthorMutatio
  * @example
  * const [createAuthorMutation, { data, loading, error }] = useCreateAuthorMutation({
  *   variables: {
+ *      name: // value for 'name'
  *      username: // value for 'username'
  *      password: // value for 'password'
  *      email: // value for 'email'
@@ -746,7 +783,7 @@ export type UpdateAuthorMutationOptions = Apollo.BaseMutationOptions<UpdateAutho
 export const DeleteAuthorDocument = gql`
     mutation DeleteAuthor($id: Int!) {
   deleteAuthor(payload: {id: $id}) {
-    success
+    message
   }
 }
     `;
@@ -779,7 +816,7 @@ export type DeleteAuthorMutationOptions = Apollo.BaseMutationOptions<DeleteAutho
 export const DeleteTagDocument = gql`
     mutation DeleteTag($id: Int!) {
   deleteTag(payload: {id: $id}) {
-    success
+    message
   }
 }
     `;
@@ -863,15 +900,7 @@ export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVa
 export const LoadPostsDocument = gql`
     query LoadPosts {
   showAllPost {
-    id
     title
-    slug
-    tags {
-      name
-    }
-    author {
-      image
-    }
   }
 }
     `;

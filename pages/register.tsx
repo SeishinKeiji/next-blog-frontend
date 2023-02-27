@@ -16,6 +16,10 @@ const Register = () => {
             <FormHelperText>We'll never share your email.</FormHelperText>
           </FormControl>
           <FormControl isRequired>
+            <FormLabel>Name</FormLabel>
+            <Input type="text" />
+          </FormControl>
+          <FormControl isRequired>
             <FormLabel>Username</FormLabel>
             <Input type="text" />
           </FormControl>

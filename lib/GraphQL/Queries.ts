@@ -52,6 +52,7 @@ export const CURRENT_USER = gql`
   query CurrentUser {
     loggedInAuthor {
       email
+      name
       username
     }
   }
