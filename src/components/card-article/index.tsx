@@ -1,95 +1,74 @@
-import { CardHeader, Flex, Avatar, Heading, IconButton, CardBody, CardFooter, Button, Box, Card, Text, Image, HStack, TagLeftIcon, TagLabel, Tag, VStack } from "@chakra-ui/react";
+import { CardHeader, Flex, Avatar, Heading, IconButton, CardBody, CardFooter, Button, Box, Card, Text, Img, HStack, TagLeftIcon, TagLabel, Tag, VStack, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiChat, BiLike, BiBookmark } from "react-icons/bi";
 import { HiHashtag } from "react-icons/hi";
 
 export const TopCardArticle = () => {
   return (
-    <Card maxW="md">
-      <CardHeader>
-        <Flex>
-          <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-            <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
-
-            <Box>
-              <Heading size="sm">Segun Adebayo</Heading>
-              <Text as={"sup"}>Jan 1 (3 days ago)</Text>
-            </Box>
-          </Flex>
-          {/* Only show if the logged-in user owns the post */}
-          <IconButton variant="ghost" colorScheme="gray" aria-label="See menu" icon={<BsThreeDotsVertical />} />
-        </Flex>
-      </CardHeader>
-      <CardBody>
-        <Text as={"h1"} fontSize={"xl"} fontWeight={"bold"}>
-          Some Title that awesome!
-        </Text>
-        <VStack gap={3} alignItems={"start"}>
-          <Text>With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.</Text>
-          <HStack spacing={2}>
+    <VStack w="40.5rem" alignItems={"stretch"} bg="blackAlpha.500" roundedBottom={"md"}>
+      <Img src="/images/banner.webp" alt="Yagami Light" h="17rem" roundedTop={"md"} />
+      <VStack alignItems={"start"} gap={5} p="1.25rem">
+        <HStack>
+          <Avatar name="Segun Adebayo" src="https://www.dropbox.com/s/dl/nd8z3hxuo3ahauk/segun_adebayo.jpg" />
+          <VStack alignItems={"start"} lineHeight={0.8}>
+            <Text fontSize={"sm"}>Segun Adebayo</Text>
+            <Text fontSize={"xs"} opacity={0.5}>
+              Jan 1 (3 days ago)
+            </Text>
+          </VStack>
+        </HStack>
+        <VStack alignItems={"start"} w={"35rem"} alignSelf="end">
+          <Heading fontSize={{ sm: "1.25rem", md: "1.875rem" }}>Loremm ipsum Dolor Siet Amet!</Heading>
+          <HStack spacing={2} alignItems={"center"}>
             <Tag size={"sm"} variant="subtle" colorScheme="cyan">
               <TagLeftIcon boxSize="12px" as={HiHashtag} />
-              <TagLabel>Rust</TagLabel>
+              <TagLabel>NodeJs</TagLabel>
             </Tag>
             <Tag size={"sm"} variant="subtle" colorScheme="cyan">
               <TagLeftIcon boxSize="12px" as={HiHashtag} />
-              <TagLabel>Microservice</TagLabel>
+              <TagLabel>Typescript</TagLabel>
             </Tag>
             <Tag size={"sm"} variant="subtle" colorScheme="cyan">
               <TagLeftIcon boxSize="12px" as={HiHashtag} />
-              <TagLabel>Docker</TagLabel>
+              <TagLabel>Backend</TagLabel>
             </Tag>
           </HStack>
+          <HStack justifyContent={"space-between"} w="full">
+            <Box>
+              {/* hide like and comment sentence in mobile mode for responsive purpose :D */}
+              <Button variant="ghost" leftIcon={<BiLike />} fontSize="sm">
+                5 Like
+              </Button>
+              <Button variant="ghost" leftIcon={<BiChat />} fontSize="sm">
+                10 Comment
+              </Button>
+            </Box>
+            <HStack spacing={3}>
+              <Text as={"small"}>3 min read</Text>
+              <IconButton variant="ghost" aria-label="bookmark" icon={<BiBookmark />} />
+            </HStack>
+          </HStack>
         </VStack>
-      </CardBody>
-      <Image objectFit="cover" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="Chakra UI" />
-
-      <CardFooter
-        justify="space-between"
-        flexWrap="wrap"
-        sx={{
-          "& > button": {
-            minW: "136px",
-          },
-        }}
-      >
-        {/* hide like and comment sentence in mobile mode for responsive purpose :D */}
-        <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
-          5 Like
-        </Button>
-        <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
-          10 Comment
-        </Button>
-        <Button flex="1" variant="ghost" leftIcon={<BiBookmark />}>
-          <Text as={"small"}>8 min read</Text>
-        </Button>
-      </CardFooter>
-    </Card>
+      </VStack>
+    </VStack>
   );
 };
 
 export const CardArticle = () => {
   // only show total statistic but not allow user to mutate data from statistic, only mutate on detail post. except for bookmark
   return (
-    <Card maxW={"md"}>
-      <CardHeader>
-        <Flex>
-          <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-            <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
-
-            <Box>
-              <Heading size="sm">Segun Adebayo</Heading>
-              <Text as={"sup"}>Jan 1 (3 days ago)</Text>
-            </Box>
-          </Flex>
-          {/* Only show if the logged-in user owns the post */}
-          <IconButton variant="ghost" colorScheme="gray" aria-label="See menu" icon={<BsThreeDotsVertical />} />
-        </Flex>
-      </CardHeader>
-      <CardBody display={"flex"} flexDirection={"column"} gap={5}>
-        <Text as={"h1"} fontSize={"xl"} fontWeight={"bold"}>
-          Some Title that awesome!
-        </Text>
+    <VStack w="40.5rem" bg="blackAlpha.500" rounded={"md"} alignItems={"start"} gap={5} p="1.25rem">
+      <HStack>
+        <Avatar name="Segun Adebayo" src="https://www.dropbox.com/s/dl/nd8z3hxuo3ahauk/segun_adebayo.jpg" />
+        <VStack alignItems={"start"} lineHeight={0.8}>
+          <Text fontSize={"sm"}>Segun Adebayo</Text>
+          <Text fontSize={"xs"} opacity={0.5}>
+            Jan 1 (3 days ago)
+          </Text>
+        </VStack>
+      </HStack>
+      <VStack alignItems={"start"} w={"35rem"} alignSelf="end">
+        <Heading fontSize={{ sm: "1.25rem", md: "1.875rem" }}>Loremm ipsum Dolor Siet Amet!</Heading>
         <HStack spacing={2} alignItems={"center"}>
           <Tag size={"sm"} variant="subtle" colorScheme="cyan">
             <TagLeftIcon boxSize="12px" as={HiHashtag} />
@@ -104,27 +83,22 @@ export const CardArticle = () => {
             <TagLabel>Backend</TagLabel>
           </Tag>
         </HStack>
-      </CardBody>
-      <CardFooter
-        justify="space-between"
-        flexWrap="wrap"
-        sx={{
-          "& > button": {
-            minW: "136px",
-          },
-        }}
-      >
-        {/* hide like and comment sentence in mobile mode for responsive purpose :D */}
-        <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
-          5 Like
-        </Button>
-        <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
-          10 Comment
-        </Button>
-        <Button flex="1" variant="ghost" leftIcon={<BiBookmark />}>
-          <Text as={"small"}>8 min read</Text>
-        </Button>
-      </CardFooter>
-    </Card>
+        <HStack justifyContent={"space-between"} w="full">
+          <Box>
+            {/* hide like and comment sentence in mobile mode for responsive purpose :D */}
+            <Button variant="ghost" leftIcon={<BiLike />} fontSize="sm">
+              5 Like
+            </Button>
+            <Button variant="ghost" leftIcon={<BiChat />} fontSize="sm">
+              10 Comment
+            </Button>
+          </Box>
+          <HStack spacing={3}>
+            <Text as={"small"}>3 min read</Text>
+            <IconButton variant="ghost" aria-label="bookmark" icon={<BiBookmark />} />
+          </HStack>
+        </HStack>
+      </VStack>
+    </VStack>
   );
 };
