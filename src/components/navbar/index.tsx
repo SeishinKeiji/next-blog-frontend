@@ -28,11 +28,11 @@ export const Navbar = () => {
         <HStack spacing={5}>
           {data?.loggedInAuthor ? (
             <>
-              <Tabs>
-                <TabList>
-                  <Tab>New Post</Tab>
-                </TabList>
-              </Tabs>
+              <NextLink href="/new" passHref legacyBehavior>
+                <Button as="a" colorScheme="teal" variant="outline">
+                  New Post
+                </Button>
+              </NextLink>
               <Menu placement="bottom-end">
                 <MenuButton>
                   <Avatar src={"/images/profile.jpg"} size={"md"} />
