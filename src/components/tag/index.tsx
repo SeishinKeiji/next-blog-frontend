@@ -20,7 +20,8 @@ const StoredTags = () => {
 };
 
 const Tags = () => {
-  const { setIsFocused, isFocused, query, setQuery, storedTags, suggestionTags, handleDelete, handleClick, allowedTags, selectedTag, setSelectedTag } = useTag();
+  const { setIsFocused, isFocused, query, setQuery, storedTags, suggestionTags, handleDelete, handleClick, selectedTag, setSelectedTag } = useTag();
+  const readOnly = storedTags.length >= 4;
 
   const handleBlur = () => {
     setIsFocused(false);
@@ -33,7 +34,7 @@ const Tags = () => {
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     switch (event.key) {
       case "Backspace":
-        if (!query) {
+        if (!query && storedTags.length) {
           handleDelete(storedTags.length - 1);
           stopNextEvent(event);
         }
@@ -53,10 +54,12 @@ const Tags = () => {
         break;
       case "Enter":
       case ",":
-        const validTag = allowedTags.find((tag) => tag.includes(selectedTag));
-        if (validTag) {
-          handleClick(validTag);
-          stopNextEvent(event);
+        if (selectedTag) {
+          const validTag = suggestionTags.find((tag) => tag.includes(selectedTag));
+          if (validTag) {
+            handleClick(validTag);
+            stopNextEvent(event);
+          }
         }
         break;
     }
@@ -64,7 +67,7 @@ const Tags = () => {
 
   return (
     <Box>
-      <HStack p={1} px={3} spacing={0} bg="gray.100" rounded="xl" roundedBottom={suggestionTags.length || query.length ? "none" : "xl"}>
+      <HStack p={1} px={3} spacing={0} bg={readOnly ? "gray.300" : "gray.100"} rounded="xl" roundedBottom={suggestionTags.length || query.length ? "none" : "xl"}>
         <StoredTags />
         <Input
           value={query}
@@ -75,10 +78,12 @@ const Tags = () => {
           border="none"
           background="transparent"
           _focus={{ boxShadow: "none" }}
-          placeholder={storedTags.length ? "Add another..." : "Add up to 4 tags..."}
+          placeholder={storedTags.length ? (readOnly ? undefined : "Add another...") : "Add up to 4 tags..."}
+          readOnly={readOnly}
+          pointerEvents={readOnly ? "none" : "auto"}
         />
       </HStack>
-      {isFocused && <Suggestion />}
+      {!!(isFocused || !readOnly) && <Suggestion />}
     </Box>
   );
 };

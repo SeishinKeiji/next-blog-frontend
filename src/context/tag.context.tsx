@@ -33,19 +33,26 @@ export const useTagSource = () => {
 
   // manage storedTags
   const setNewTag = useCallback((name: string) => {
+    setAllowedTags((currentSAllowedTags) => currentSAllowedTags.filter((tag) => tag !== name));
     dispatch({ type: "insert", payload: { name } });
   }, []);
-  const removeTag = useCallback((index: number) => {
-    dispatch({ type: "delete", payload: { index } });
-  }, []);
+  const removeTag = useCallback(
+    (index: number) => {
+      setAllowedTags(allowedTags.concat([storedTags[index]]));
+      dispatch({ type: "delete", payload: { index } });
+    },
+    [storedTags]
+  );
 
   // provided values on custom hooks for the purpose of handle user interaction on additional event listener
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const handleClick = (name: string) => {
-    allowedTags.includes(name) && setNewTag(name);
+    suggestionTags.includes(name) && setNewTag(name);
     setQuery("");
+    setIsFocused(false);
+    setSelectedTag("");
   };
   const handleHover = (name: string) => {
     setSelectedTag(name);
@@ -56,12 +63,14 @@ export const useTagSource = () => {
 
   // manage suggestionTags
   useEffect(() => {
-    if (query.length) setSuggestionTags(() => allowedTags.filter((tag) => tag.includes(query)));
-    else setSuggestionTags(() => allowedTags);
+    if (query.length) {
+      setSuggestionTags(() => allowedTags.filter((tag) => tag.includes(query)));
+      setIsFocused(true);
+    } else setSuggestionTags(() => allowedTags);
     if (!isFocused) setSuggestionTags([]);
   }, [query, isFocused]);
 
-  return { isFocused, allowedTags, storedTags, suggestionTags, selectedTag, query, setQuery, setIsFocused, setSelectedTag, handleHover, handleClick, handleDelete };
+  return { isFocused, storedTags, suggestionTags, selectedTag, query, setQuery, setIsFocused, setSelectedTag, handleHover, handleClick, handleDelete };
 };
 
 const reducer = (state: string[], action: TagAction): string[] => {
