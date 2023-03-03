@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import { Heading } from "@chakra-ui/react";
 import MainLayout from "components/layout/main.layout";
 import { Query } from "generated-types";
-import { addApolloState, initializeApollo } from "lib/GraphQL/apollo";
+import { addApolloState, initializeApollo } from "src/hooks/apollo";
 import { CURRENT_USER } from "lib/GraphQL/Queries";
 import { useRouter } from "next/router";
 import { withWrapper } from "src/hooks/withWrapper";

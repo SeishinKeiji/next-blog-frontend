@@ -72,7 +72,6 @@ export const SHOW_ALL_TAGS = gql`
   query ShowAllTags {
     showAllTag {
       name
-      id
     }
   }
 `;

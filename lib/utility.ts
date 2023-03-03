@@ -9,3 +9,12 @@ export const setToStorage = (key: string, value: string) => {
     return window.localStorage.setItem(key, value);
   }
 };
+
+export const escapedRegex = (text: string) => {
+  return text.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
+};
+
+export const stopNextEvent = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  event.stopPropagation();
+  event.preventDefault();
+};
