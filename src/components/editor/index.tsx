@@ -1,21 +1,33 @@
-import { Box } from "@chakra-ui/react";
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
+import React from "react";
+import { Editor, rootCtx } from "@milkdown/core";
+import { nord } from "@milkdown/theme-nord";
+import { Milkdown, MilkdownProvider, useEditor } from "@milkdown/react";
+import { commonmark } from "@milkdown/preset-commonmark";
+import { Prose } from "@nikolovlazar/chakra-ui-prose";
 
-const Editor = () => {
-  const editor = new EditorJS({
-    holder: "editorjs",
-    tools: {
-      headers: Header,
-    },
-    autofocus: false,
-  });
+import "@milkdown/theme-nord/style.css";
 
+const MilkdownEditor: React.FC = () => {
+  useEditor((root) =>
+    Editor.make()
+      .config(nord)
+      .config((ctx) => {
+        ctx.set(rootCtx, root);
+      })
+      .use(commonmark)
+  );
+
+  return <Milkdown />;
+};
+
+const MilkdownEditorWrapper: React.FC = () => {
   return (
-    <Box w="full" h="full">
-      <div id="editorjs"></div>
-    </Box>
+    <Prose>
+      <MilkdownProvider>
+        <MilkdownEditor />
+      </MilkdownProvider>
+    </Prose>
   );
 };
 
-export default Editor;
+export default MilkdownEditorWrapper;
