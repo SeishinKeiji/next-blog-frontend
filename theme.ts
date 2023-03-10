@@ -11,19 +11,33 @@ const theme = extendTheme(
   { config },
   withProse({
     baseStyle: {
+      ".milkdown img.emoji": {
+        w: "1em",
+        h: "1em",
+        m: 0,
+        display: "inline-block",
+        mr: "1px",
+        verticalAlign: "text-top",
+      },
+      ".milkdown li p": {
+        lineHeight: "1.5rem",
+        m: 0,
+      },
+      ".milkdown li::after": {
+        all: "unset !important",
+      },
+      ".milkdown ul, ol": {
+        p: 0,
+        ml: "1rem",
+      },
+      ".milkdown li p + p": {
+        mt: "0.5rem",
+      },
       ".milkdown > .ProseMirror-focused": {
         _focus: { outline: "none" },
       },
       ".milkdown": {
-        px: 2,
-        py: 4,
-        border: "1px",
-        borderColor: "gray.200",
-        bg: "gray.400",
-        rounded: "lg",
-      },
-      ".editor": {
-        marginX: "auto",
+        mx: 55,
       },
     },
   })

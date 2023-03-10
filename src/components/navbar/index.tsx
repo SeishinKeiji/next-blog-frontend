@@ -1,6 +1,7 @@
 /* eslint-disable react/no-children-prop */
-import { Avatar, Flex, HStack, Input, InputGroup, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spacer, Tab, TabList, Tabs, Button, Portal, Link, InputRightElement } from "@chakra-ui/react";
+import { useColorMode, Avatar, Flex, HStack, Input, InputGroup, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spacer, Button, Portal, Link, InputRightElement, IconButton } from "@chakra-ui/react";
 import { RiSearchLine } from "react-icons/ri";
+import { IoIosPartlySunny, IoIosCloudyNight } from "react-icons/io";
 import { useMutation, useQuery } from "@apollo/client";
 
 import { CURRENT_USER } from "lib/GraphQL/Queries";
@@ -10,7 +11,11 @@ import { LOGOUT } from "lib/GraphQL/Mutations";
 
 export const Navbar = () => {
   const { data, client } = useQuery<Query>(CURRENT_USER);
+  const { toggleColorMode, colorMode } = useColorMode();
   const [logout] = useMutation<Mutation>(LOGOUT);
+  const handleToggle = () => {
+    toggleColorMode();
+  };
 
   return (
     <Flex as={"nav"} bg={"whiteAlpha.200"} width={"full"} justifyContent={"center"} p={"3"}>
@@ -26,6 +31,7 @@ export const Navbar = () => {
         </HStack>
         <Spacer />
         <HStack spacing={5}>
+          <IconButton onClick={handleToggle} colorScheme="blue" aria-label="Search database" icon={colorMode === "light" ? <IoIosCloudyNight /> : <IoIosPartlySunny />} />
           {data?.loggedInAuthor ? (
             <>
               <NextLink href="/new" passHref legacyBehavior>

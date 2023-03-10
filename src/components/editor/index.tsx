@@ -1,31 +1,25 @@
-import { Editor, rootCtx } from "@milkdown/core";
-import { nord } from "@milkdown/theme-nord";
-import { Milkdown, MilkdownProvider, useEditor } from "@milkdown/react";
-import { commonmark } from "@milkdown/preset-commonmark";
-import { Prose } from "@nikolovlazar/chakra-ui-prose";
-
+import { ProsemirrorAdapterProvider } from "@prosemirror-adapter/react";
+import { MilkdownProvider } from "@milkdown/react";
 import "@milkdown/theme-nord/style.css";
 
-const MilkdownEditor: React.FC = () => {
-  useEditor((root) =>
-    Editor.make()
-      .config(nord)
-      .config((ctx) => {
-        ctx.set(rootCtx, root);
-      })
-      .use(commonmark)
-  );
+import { compose } from "lib/compose";
+import { ProseStateProvider } from "src/context/prose.context";
+import { Loader } from "components/Loader";
+import dynamic from "next/dynamic";
 
-  return <Milkdown />;
-};
+const AsyncMilkdownEditor = dynamic(() => import("./MilkdownEditor"), {
+  loading: () => <Loader />,
+  ssr: false,
+});
+
+// milkdown provider, prose state provider = deliver json data and save it to database
+const Provider = compose(MilkdownProvider, ProsemirrorAdapterProvider, ProseStateProvider);
 
 const MilkdownEditorWrapper: React.FC = () => {
   return (
-    <Prose>
-      <MilkdownProvider>
-        <MilkdownEditor />
-      </MilkdownProvider>
-    </Prose>
+    <Provider>
+      <AsyncMilkdownEditor />
+    </Provider>
   );
 };
 

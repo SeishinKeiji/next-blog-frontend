@@ -67,7 +67,7 @@ const Tags = () => {
 
   return (
     <Box>
-      <HStack p={1} px={3} spacing={0} bg={readOnly ? "gray.300" : "gray.100"} rounded="xl" roundedBottom={suggestionTags.length || query.length ? "none" : "xl"}>
+      <HStack p={1} px={3} spacing={0} bg={readOnly ? "gray.100" : "gray.50"} rounded="xl" roundedBottom={suggestionTags.length || query.length ? "none" : "xl"}>
         <StoredTags />
         <Input
           value={query}

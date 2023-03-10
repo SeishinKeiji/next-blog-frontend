@@ -1,5 +1,5 @@
 import { ReactNode, useRef } from "react";
-import { Button, FormControl, FormErrorMessage, FormLabel, Icon, InputGroup } from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, Icon, InputGroup } from "@chakra-ui/react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { FiImage } from "react-icons/fi";
 
@@ -66,7 +66,9 @@ const App = () => {
     <>
       <FormControl isInvalid={!!errors.file_} isRequired>
         <FileUpload accept={"image/*"} multiple register={register("file_", { validate: validateFiles })}>
-          <Button leftIcon={<Icon as={FiImage} />}>Add a cover image</Button>
+          <Button leftIcon={<Icon as={FiImage} />} bg="gray.50">
+            Add a cover image
+          </Button>
         </FileUpload>
 
         <FormErrorMessage>{errors.file_ && errors?.file_.message}</FormErrorMessage>

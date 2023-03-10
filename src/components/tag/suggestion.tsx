@@ -31,7 +31,7 @@ export const Suggestion: React.FC = () => {
 
   return (
     <Box pos="relative" zIndex={"overlay"}>
-      <Box layerStyle="card" ref={(node) => (container.current = node)} pos="absolute" w="full" maxHeight={"200px"} overflowY="auto">
+      <Box layerStyle="card" ref={(node) => (container.current = node)} pos="absolute" w="full" maxHeight={"200px"} overflowY="auto" bg="gray.50" shadow="md" roundedBottom={"lg"}>
         <VStack as={"ul"} spacing={0} divider={<Divider />} alignItems="stretch">
           {suggestionTags.length || !query.length ? (
             suggestionTags.map((item, index) => (
@@ -40,7 +40,8 @@ export const Suggestion: React.FC = () => {
                 listStyleType="none"
                 p={3}
                 rounded={0}
-                bgColor={suggestionTags.indexOf(selectedTag) == index ? "gray.200" : "gray.100"}
+                bgColor={suggestionTags.indexOf(selectedTag) == index ? "gray.100" : "gray.50"}
+                cursor="pointer"
                 key={item}
                 id={suggestionTags.indexOf(selectedTag) == index ? "selected" : undefined}
                 onTouchStart={() => handleClick(item)}
@@ -51,7 +52,7 @@ export const Suggestion: React.FC = () => {
               </Box>
             ))
           ) : (
-            <Box as={"li"} listStyleType="none" p={3} rounded={0} _hover={{ bgColor: "gray.200" }} bgColor="gray.100">
+            <Box as={"li"} listStyleType="none" p={3} rounded={0} _hover={{ bgColor: "gray.100", cursor: "not-allowed" }}>
               Tag not found!
             </Box>
           )}
