@@ -18,11 +18,7 @@ const TagProvider: React.FC = () => {
 export const useTag = () => useContext(TagContext);
 
 export const useTagSource = () => {
-  useQuery<Query>(SHOW_ALL_TAGS, {
-    onCompleted(data) {
-      setAllowedTags(data.showAllTag.map((tag) => tag.name));
-    },
-  });
+  const { data } = useQuery<Query>(SHOW_ALL_TAGS, {});
 
   // needed for keyboard arrow keys support to select suggestion and other purpose
   const [selectedTag, setSelectedTag] = useState("");
@@ -69,6 +65,12 @@ export const useTagSource = () => {
     } else setSuggestionTags(() => allowedTags);
     if (!isFocused) setSuggestionTags([]);
   }, [query, isFocused]);
+
+  useEffect(() => {
+    if (data) {
+      setAllowedTags(data.showAllTag.map((tag) => tag.name));
+    }
+  }, [data]);
 
   return { isFocused, storedTags, suggestionTags, selectedTag, query, setQuery, setIsFocused, setSelectedTag, handleHover, handleClick, handleDelete };
 };
