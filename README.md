@@ -1,4 +1,4 @@
-# Zero's Blog | Client Side
+# My Persoanl website
 
 ## Technology stack:
 

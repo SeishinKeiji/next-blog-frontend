@@ -16,6 +16,8 @@
     "@chakra-ui/react": "^2.4.6",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/lexend": "^4.5.15",
+    "@fontsource/roboto-slab": "^4.5.11",
     "@milkdown/core": "^7.0.1",
     "@milkdown/ctx": "^7.0.1",
     "@milkdown/plugin-block": "^7.0.1",
@@ -51,6 +53,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.3",
     "react-icons": "^4.7.1",
+    "swiper": "^9.1.0",
     "typescript": "4.9.4"
   },
   "devDependencies": {

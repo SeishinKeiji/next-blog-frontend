@@ -13,7 +13,7 @@ const Profile = () => {
 
   return (
     <MainLayout title={username as string}>
-      <Heading>Profile page: {username}</Heading>
+      <Heading textAlign={"center"}>Profile page: {username}</Heading>
     </MainLayout>
   );
 };

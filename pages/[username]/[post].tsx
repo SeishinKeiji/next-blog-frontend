@@ -8,7 +8,7 @@ const Profile = () => {
 
   return (
     <MainLayout title={post as string}>
-      <Heading>Post title: {post}</Heading>
+      <Heading textAlign={"center"}>Post title: {post}</Heading>
     </MainLayout>
   );
 };

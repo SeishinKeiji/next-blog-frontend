@@ -8,7 +8,13 @@ const config: ThemeConfig = {
 };
 
 const theme = extendTheme(
-  { config },
+  {
+    config,
+    fonts: {
+      heading: `'Lexend', sans-serif`,
+      body: `'Roboto Slab', serif`,
+    },
+  },
   withProse({
     baseStyle: {
       ".milkdown img.emoji": {

@@ -1,6 +1,12 @@
 import { useTagSource } from "src/context/tag.context";
 import type { Dispatch, SetStateAction } from "react";
 
+export interface NavLinkProps {
+  name: string;
+  path: string;
+  onClose: () => void;
+}
+
 export type TagState = {
   suggestions: string[];
   tags: string[];
