@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, HStack, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, HStack, Input } from "@chakra-ui/react";
 import { commandsCtx } from "@milkdown/core";
 import { TooltipProvider, tooltipFactory } from "@milkdown/plugin-tooltip";
 import { updateImageCommand } from "@milkdown/preset-commonmark";
@@ -67,47 +67,49 @@ export const ImageTooltip: React.FC = () => {
   };
 
   return (
-    <HStack ref={ref} bg="gray.100" p="5" rounded="lg">
-      <FormControl>
-        <FormLabel>Link</FormLabel>
-        <Input
-          type="text"
-          onBlur={(e) => {
-            onChange("src", e);
-          }}
-          onChange={debounce((e) => {
-            onChange("src", e);
-          }, 2000)}
-          defaultValue={src}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Alt</FormLabel>
-        <Input
-          type="text"
-          onBlur={(e) => {
-            onChange("alt", e);
-          }}
-          onChange={debounce((e) => {
-            onChange("alt", e);
-          }, 2000)}
-          defaultValue={alt}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Title</FormLabel>
-        <Input
-          type="text"
-          onBlur={(e) => {
-            onChange("title", e);
-          }}
-          onChange={debounce((e) => {
-            onChange("title", e);
-          }, 2000)}
-          defaultValue={title}
-        />
-      </FormControl>
-    </HStack>
+    <Box display="none">
+      <HStack ref={ref} bg="gray.100" p="5" rounded="lg">
+        <FormControl>
+          <FormLabel>Link</FormLabel>
+          <Input
+            type="text"
+            onBlur={(e) => {
+              onChange("src", e);
+            }}
+            onChange={debounce((e) => {
+              onChange("src", e);
+            }, 2000)}
+            defaultValue={src}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Alt</FormLabel>
+          <Input
+            type="text"
+            onBlur={(e) => {
+              onChange("alt", e);
+            }}
+            onChange={debounce((e) => {
+              onChange("alt", e);
+            }, 2000)}
+            defaultValue={alt}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Title</FormLabel>
+          <Input
+            type="text"
+            onBlur={(e) => {
+              onChange("title", e);
+            }}
+            onChange={debounce((e) => {
+              onChange("title", e);
+            }, 2000)}
+            defaultValue={title}
+          />
+        </FormControl>
+      </HStack>
+    </Box>
   );
 };
 
