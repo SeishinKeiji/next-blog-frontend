@@ -31,8 +31,9 @@ export const Block = () => {
   });
 
   return (
-    <Box position={"relative"} top={-2} ref={setElement}>
-      <Menu>
+    <Box display={"none"}>
+      <Box position={"relative"} top={-2} ref={setElement}>
+      <Menu >
         <MenuButton as={IconButton} aria-label="Options" icon={<BiDotsVertical />} variant="outline" />
         <MenuList>
           <MenuItem
@@ -77,6 +78,7 @@ export const Block = () => {
           </MenuItem>
         </MenuList>
       </Menu>
+      </Box>
     </Box>
   );
 };
