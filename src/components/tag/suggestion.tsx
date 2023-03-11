@@ -1,4 +1,4 @@
-import { Box, VStack, Divider } from "@chakra-ui/react";
+import { Box, VStack, Divider, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { useTag } from "src/context/tag.context";
 
@@ -40,7 +40,7 @@ export const Suggestion: React.FC = () => {
                 listStyleType="none"
                 p={3}
                 rounded={0}
-                bgColor={suggestionTags.indexOf(selectedTag) == index ? "gray.100" : "gray.50"}
+                bg={useColorModeValue(suggestionTags.indexOf(selectedTag) == index ? "gray.100" : "gray.50", suggestionTags.indexOf(selectedTag) == index ? "gray.900" : "gray.800")}
                 cursor="pointer"
                 key={item}
                 id={suggestionTags.indexOf(selectedTag) == index ? "selected" : undefined}
@@ -52,7 +52,7 @@ export const Suggestion: React.FC = () => {
               </Box>
             ))
           ) : (
-            <Box as={"li"} listStyleType="none" p={3} rounded={0} _hover={{ bgColor: "gray.100", cursor: "not-allowed" }}>
+            <Box as={"li"} listStyleType="none" p={3} rounded={0} _hover={{ bg: useColorModeValue("gray.100", "gray.900"), cursor: "not-allowed" }}>
               Tag not found!
             </Box>
           )}

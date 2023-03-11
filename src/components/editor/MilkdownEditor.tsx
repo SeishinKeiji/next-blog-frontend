@@ -1,5 +1,5 @@
 import { CmdKey } from "@milkdown/core";
-import { Box, HStack, IconButton, VStack } from "@chakra-ui/react";
+import { Box, HStack, IconButton, useColorModeValue, VStack } from "@chakra-ui/react";
 import { GrUndo, GrRedo, GrBold, GrItalic, GrStrikeThrough, GrOrderedList, GrUnorderedList, GrBlockQuote } from "react-icons/gr";
 import { useMilkdownEditor } from "src/hooks/useEditor";
 import { callCommand } from "@milkdown/utils";
@@ -18,7 +18,7 @@ const MilkdownEditor: React.FC = () => {
 
   return (
     <VStack h="33rem" alignItems="stretch">
-      <Box bg="gray.50" p="3" rounded="md">
+      <Box bg={useColorModeValue("gray.50", "gray.800")} p="3" rounded="md">
         <HStack>
           <IconButton icon={<GrUndo />} aria-label="Undo" onClick={() => call(undoCommand.key)} />
           <IconButton icon={<GrRedo />} aria-label="Redo" onClick={() => call(redoCommand.key)} />
@@ -30,7 +30,7 @@ const MilkdownEditor: React.FC = () => {
           <IconButton icon={<GrBlockQuote />} aria-label="Quote" onClick={() => call(wrapInBlockquoteCommand.key)} />
         </HStack>
       </Box>
-      <Prose bg="gray.50" h="full" overflow="auto" overscroll="none" shadow="xl" rounded="xl">
+      <Prose bg={useColorModeValue("gray.50", "gray.800")} h="full" overflow="auto" overscroll="none" shadow="xl" rounded="xl">
         <Milkdown />
       </Prose>
     </VStack>

@@ -1,4 +1,4 @@
-import { Box, HStack, Input, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import { Box, HStack, Input, Tag, TagCloseButton, TagLabel, useColorModeValue } from "@chakra-ui/react";
 
 import { Suggestion } from "./suggestion";
 import { useTag } from "src/context/tag.context";
@@ -67,7 +67,7 @@ const Tags = () => {
 
   return (
     <Box>
-      <HStack p={1} px={3} spacing={0} bg={readOnly ? "gray.100" : "gray.50"} rounded="xl" roundedBottom={suggestionTags.length || query.length ? "none" : "xl"}>
+      <HStack p={1} px={3} spacing={0} bg={useColorModeValue(readOnly ? "gray.100" : "gray.50", readOnly ? "gray.900" : "gray.800")} rounded="xl" roundedBottom={suggestionTags.length || query.length ? "none" : "xl"}>
         <StoredTags />
         <Input
           value={query}

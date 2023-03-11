@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, HStack, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, HStack, Input, useColorModeValue } from "@chakra-ui/react";
 import { commandsCtx } from "@milkdown/core";
 import { TooltipProvider, tooltipFactory } from "@milkdown/plugin-tooltip";
 import { updateImageCommand } from "@milkdown/preset-commonmark";
@@ -68,7 +68,7 @@ export const ImageTooltip: React.FC = () => {
 
   return (
     <Box display="none">
-      <HStack ref={ref} bg="gray.100" p="5" rounded="lg">
+      <HStack ref={ref} bg={useColorModeValue("gray.100", "gray.900")} p="5" rounded="lg">
         <FormControl>
           <FormLabel>Link</FormLabel>
           <Input
