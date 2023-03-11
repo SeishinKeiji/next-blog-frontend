@@ -6,10 +6,9 @@ import { NodeSelection } from "@milkdown/prose/state";
 import { useInstance } from "@milkdown/react";
 import { usePluginViewContext } from "@prosemirror-adapter/react";
 import debounce from "lodash.debounce";
-import type { FC } from "react";
 import { useEffect, useRef } from "react";
 
-export const ImageTooltip: FC = () => {
+export const ImageTooltip: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { view, prevState } = usePluginViewContext();
   const tooltipProvider = useRef<TooltipProvider>();
@@ -23,9 +22,6 @@ export const ImageTooltip: FC = () => {
     if (ref.current && !tooltipProvider.current && !loading) {
       const provider = new TooltipProvider({
         content: ref.current,
-        tippyOptions: {
-          zIndex: 30,
-        },
         shouldShow: (view) => {
           const { selection } = view.state;
           const { empty, from } = selection;

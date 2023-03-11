@@ -1,5 +1,5 @@
 import type { Ctx, MilkdownPlugin } from "@milkdown/ctx";
-import { Editor, defaultValueCtx, editorViewOptionsCtx, rootCtx } from "@milkdown/core";
+import { Editor, defaultValueCtx, rootCtx } from "@milkdown/core";
 import { block } from "@milkdown/plugin-block";
 import { clipboard } from "@milkdown/plugin-clipboard";
 import { emoji, emojiAttr } from "@milkdown/plugin-emoji";
@@ -9,7 +9,6 @@ import { upload } from "@milkdown/plugin-upload";
 import { commonmark, listItemSchema } from "@milkdown/preset-commonmark";
 import { gfm } from "@milkdown/preset-gfm";
 import { useEditor } from "@milkdown/react";
-import { nord } from "@milkdown/theme-nord";
 import { $view } from "@milkdown/utils";
 import { useNodeViewFactory, usePluginViewFactory, useWidgetViewFactory } from "@prosemirror-adapter/react";
 import debounce from "lodash.debounce";
@@ -72,7 +71,6 @@ export const useMilkdownEditor = (defaultValue: string) => {
           }),
         });
       })
-      .config(nord)
       .use(commonmark)
       .use(linkPlugin(widgetViewFactory))
       .use(listener)

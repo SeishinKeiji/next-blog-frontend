@@ -1,6 +1,5 @@
 import { ProsemirrorAdapterProvider } from "@prosemirror-adapter/react";
 import { MilkdownProvider } from "@milkdown/react";
-import "@milkdown/theme-nord/style.css";
 
 import { compose } from "lib/compose";
 import { ProseStateProvider } from "src/context/prose.context";
