@@ -3,7 +3,7 @@ import { HStack, Text, Image, Link, Box } from "@chakra-ui/react";
 const Footer = () => {
   return (
     <Box px={4} as="footer">
-      <HStack alignItems={"center"} justifyContent={"space-between"} maxW={1400} mx={"auto"} h={16} p={5}>
+      <HStack alignItems={"center"} justifyContent={"space-between"} maxW={1400} mx={"auto"} p={5} gap={1} wrap="wrap">
         <Text fontWeight={"medium"}>All rights reserved &copy; Ahmad Gani {new Date().getFullYear()}</Text>
         <HStack spacing={5}>
           <Link display={"flex"} href="https://www.linkedin.com/in/ahmad-gani/">

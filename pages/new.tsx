@@ -14,7 +14,7 @@ const NewPost = () => {
   return (
     <MainLayout title={"New Post"}>
       <Box px={4}>
-        <VStack as="form" maxW="50rem" w="full" alignItems={"stretch"} spacing={4} bg={useColorModeValue("cyan.100", "cyan.900")} p={10} mx="auto" rounded="lg">
+        <VStack as="form" maxW="50rem" w="full" alignItems={"stretch"} spacing={4} bg={useColorModeValue("cyan.100", "cyan.900")} p={{ lg: 10, base: 2 }} mx="auto" rounded="lg">
           <UploadImage />
           <Input type={"text"} fontSize="5xl" size="lg" border="none" background="transparent" _focus={{ boxShadow: "none" }} placeholder="New post title here..." _placeholder={{ fontWeight: 700 }} />
           <TagInput />

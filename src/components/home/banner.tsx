@@ -1,10 +1,10 @@
-import { HStack, VStack, Heading, Box, Text, Button, Img } from "@chakra-ui/react";
+import { VStack, Heading, Box, Text, Button, Img, Stack } from "@chakra-ui/react";
 import React from "react";
 
 const Banner = () => {
   return (
-    <HStack justifyContent={"space-between"}>
-      <VStack alignItems={"start"} w={"35rem"}>
+    <Stack direction={{ base: "column-reverse", md: "row" }} justifyContent={"space-between"} alignItems={"center"} gap={5}>
+      <VStack alignItems={"start"} maxW={"35rem"}>
         <Heading fontSize={"xl"} fontWeight={"medium"} fontFamily={"Lexend"}>
           <Box fontSize={"3xl"} display={"inline"} letterSpacing={0} lineHeight={0}>
             👋
@@ -18,7 +18,7 @@ const Banner = () => {
         </Button>
       </VStack>
       <Img src={"/images/profile.jpg"} w={"md"} rounded="xl" />
-    </HStack>
+    </Stack>
   );
 };
 

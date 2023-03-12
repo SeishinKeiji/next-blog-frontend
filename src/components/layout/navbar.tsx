@@ -73,7 +73,7 @@ export const Navbar = () => {
         </HStack>
 
         <HStack>
-          <InputGroup>
+          <InputGroup display={["none", "inherit", "inherit"]}>
             <InputRightElement pointerEvents="none" children={<RiSearchLine />} />
             <Input type="text" placeholder="Search..." />
           </InputGroup>
@@ -88,6 +88,10 @@ export const Navbar = () => {
             <NavLink name="Diary" path="/blog/diary" onClose={onClose} />
             <NavLink name="Programming" path="/blog/programming" onClose={onClose} />
             <NavLink name="Life Hack" path="/blog/lifehack" onClose={onClose} />
+            <InputGroup>
+              <InputRightElement pointerEvents="none" children={<RiSearchLine />} />
+              <Input type="text" placeholder="Search..." />
+            </InputGroup>
           </Stack>
         </Box>
       ) : null}

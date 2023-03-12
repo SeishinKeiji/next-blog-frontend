@@ -1,8 +1,8 @@
-import { Text, HStack, Link, VStack, Heading } from "@chakra-ui/react";
+import { Text, Link, VStack, Heading, Stack } from "@chakra-ui/react";
 
 const About = () => {
   return (
-    <HStack gap={3} justifyContent={"space-between"} alignItems={"start"}>
+    <Stack gap={3} justifyContent={"space-between"} alignItems={"start"} direction={{ base: "column", lg: "row" }}>
       <VStack alignItems={"start"} flex={1}>
         <Heading fontSize={"3xl"} fontWeight={"medium"}>
           About Me
@@ -21,7 +21,7 @@ const About = () => {
           learn it effeciently. And i love to complete course to update and gain new knowledege, you can check my certificate in <Link href="https://www.linkedin.com/in/ahmad-gani/details/certifications/">this link</Link>
         </Text>
       </VStack>
-    </HStack>
+    </Stack>
   );
 };
 

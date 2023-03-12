@@ -10,10 +10,18 @@ const Tools = () => {
         Tools
       </Heading>
       <Text textAlign={"start"}>I&apos;ve worked with a variety of tools and frameworks like:</Text>
-      <Box w="40rem" h="25rem">
+      <Box h="25rem" w={{ base: "350px", md: "40rem" }}>
         <Swiper
-          slidesPerView={2}
-          spaceBetween={10}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 4,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+          }}
           grabCursor={true}
           pagination={{
             clickable: true,

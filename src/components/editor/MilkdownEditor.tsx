@@ -19,7 +19,7 @@ const MilkdownEditor: React.FC = () => {
   return (
     <VStack h="33rem" alignItems="stretch">
       <Box bg={useColorModeValue("gray.50", "gray.800")} p="3" rounded="md">
-        <HStack>
+        <HStack wrap={"wrap"} gap={1}>
           <IconButton icon={<GrUndo />} aria-label="Undo" onClick={() => call(undoCommand.key)} />
           <IconButton icon={<GrRedo />} aria-label="Redo" onClick={() => call(redoCommand.key)} />
           <IconButton icon={<GrBold />} aria-label="Bold" onClick={() => call(toggleStrongCommand.key)} />
