@@ -106,6 +106,24 @@ const Tools = () => {
             <Center my={3}>
               <VStack h={"20rem"} w={"17rem"} rounded={"3xl"} shadow={"md"} alignItems={"stretch"} justifyContent={"space-around"} spacing={0}>
                 <HStack mx="auto" py="0.625rem" px="0.875rem">
+                  <Img w="64px" src="/icons/techNtools/graphql.svg" alt="GraphQL" />
+                </HStack>
+                <VStack alignItems={"start"} py="0.625rem" px="0.875rem" minH="10.875rem">
+                  <Heading fontSize={"lg"}>GraphQL</Heading>
+                  <Text textAlign={"start"} fontSize={"sm"} flex={1}>
+                    An Efficient API Query Language
+                  </Text>
+                  <Button alignSelf={"center"} rightIcon={<GoLinkExternal />} colorScheme="blue" variant="outline" size="sm">
+                    View More
+                  </Button>
+                </VStack>
+              </VStack>
+            </Center>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Center my={3}>
+              <VStack h={"20rem"} w={"17rem"} rounded={"3xl"} shadow={"md"} alignItems={"stretch"} justifyContent={"space-around"} spacing={0}>
+                <HStack mx="auto" py="0.625rem" px="0.875rem">
                   <Img w="64px" src="/icons/techNtools/postgresql.svg" alt="PostgresQL" />
                 </HStack>
                 <VStack alignItems={"start"} py="0.625rem" px="0.875rem" minH="10.875rem">
