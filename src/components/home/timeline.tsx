@@ -45,21 +45,21 @@ const milestones = [
   },
   {
     id: 5,
-    date: "2022",
+    date: "August 28, 2022",
     title: "Kembali menjadi wibu",
     description:
       "Setelah setahun mondok, saya kembali menjadi wibu dan menghabiskan beberapa bulan karena terjebak pada kenikmatan animeh :v\ndan saya memutuskan untuk membuat sebuah artiekl-artikel yang sekarang masih dalam mode draft di medium dan juga di google drive, hal tersebut saya lakukan guna mengalihkan saya dari menonton anime, dan kembali mencoba me-refreshing dan re-leveling apa yang telah saya pelajari.",
   },
   {
     id: 6,
-    date: "2021",
+    date: "August 28, 2021",
     title: "Hibernasi dari dunia perkodingan",
     description:
       "Setelah saya lulus dari smp, saya di daftarkan pada sebuah pondok pesantren dan di sana saya mempelajari banyak ilmu non-technical yang bersifat softskill, seperti cara berkomunikasi dan masih banyak lagi pengalaman kocak yang saya alami :v",
   },
   {
     id: 7,
-    date: "August 28, 2020 - February 28, 2023",
+    date: "April 17, 2020 - February 28, 2023",
     title: "Interest in Programming and Be a script kiddie",
     description:
       "Saya mulai tertarik pada programming pada saat saya smp kelas 3 saat itu sedang covid, dan hal yang sampai saat ini masih membuat saya ingin tertawa adalah faktor yang membuat saya tertarik adalah karena melihat kakak saya yang saat itu sedang mengoding dan menantang saya untuk menulis hello world di website menggunakan php. di situlah saya merasa tertantang dan setelah menulis hello world saya mendalami bahasa pemrograman tersebut, dan terimakasih kepada pa sandhika yang telah menemani dan membimbing saya membangun website dengan php dan berbagai frameworknya. lalu setelah beberapa bulan menggunakan php saya bertemu seorang teman baru yang meracuni saya untuk berpindah ke fullstack javascript, beliau adalah mas arya. yang juga meracuni saya untuk berpindah dari windows ke limnux :v\ndan sampai tanggal ini saya masih menjadi fullstack javascript developer walaupun masih sangat jauh dari kriteria fullstack tetapi saya tetap menyebutnya fullstack :v",
