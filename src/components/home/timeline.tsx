@@ -45,6 +45,20 @@ const milestones = [
   },
   {
     id: 5,
+    date: "2022",
+    title: "Kembali menjadi wibu",
+    description:
+      "Setelah setahun mondok, saya kembali menjadi wibu dan menghabiskan beberapa bulan karena terjebak pada kenikmatan animeh :v\ndan saya memutuskan untuk membuat sebuah artiekl-artikel yang sekarang masih dalam mode draft di medium dan juga di google drive, hal tersebut saya lakukan guna mengalihkan saya dari menonton anime, dan kembali mencoba me-refreshing dan re-leveling apa yang telah saya pelajari.",
+  },
+  {
+    id: 6,
+    date: "2021",
+    title: "Hibernasi dari dunia perkodingan",
+    description:
+      "Setelah saya lulus dari smp, saya di daftarkan pada sebuah pondok pesantren dan di sana saya mempelajari banyak ilmu non-technical yang bersifat softskill, seperti cara berkomunikasi dan masih banyak lagi pengalaman kocak yang saya alami :v",
+  },
+  {
+    id: 7,
     date: "August 28, 2020 - February 28, 2023",
     title: "Interest in Programming and Be a script kiddie",
     description:

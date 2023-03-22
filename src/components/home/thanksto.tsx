@@ -21,7 +21,7 @@ const contributors: ContributorAttributes[] = [
     username: "Arya Wahyu Pratama",
     as: "Best Rival",
     image: "https://avatars.githubusercontent.com/u/75900371?v=4",
-    content: `Sishoo... Terimakasih telah sharing-sharing dan sangat menyenangkan bersaing dengan lu, moga kita bisa berbincang-bincang kembali seperti dulu :"v`,
+    content: `Sishoo... Terimakasih telah sharing-sharing ilmunya dan sangat menyenangkan bersaing dengan lu, moga kita bisa berbincang-bincang kembali seperti dulu :"v`,
   },
   {
     username: "Hanif Dwy Putera",
@@ -40,6 +40,12 @@ const contributors: ContributorAttributes[] = [
     as: "My Sister",
     image: "/images/contributor.jpeg",
     content: `Terimakasih atas bantuan dan dukungan yang diberikan, tak terhitung jumlahnya. hontoni arigatouu`,
+  },
+  {
+    username: "Other",
+    as: "Anything of the truth",
+    image: "/images/contributor.jpeg",
+    content: `Terimakasih kepada kepada sarana/prasana infrastruktur, ruang, waktu, peristiwa keberuntungan, dan umat manusia yang merupakan contributor yang tak terhitung jumlahnya yang telah berkontribusi dalam hidup saya dan mengubah hidup saya menjadi lebih baik  :D`,
   },
 ];
 
