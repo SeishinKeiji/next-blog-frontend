@@ -27,7 +27,7 @@ const milestones = [
     date: "March 22, 2023",
     title: "Interest in Networking",
     description:
-      "Terkadang Saya mempelajari hal lain pada saat saya mempelajari GraphQL sebagai pelarian saya ketika stuck saat mendalami GraphQL, untuk saat ini saya tertarik pada jaringan khususnya pada layer application yaitu http, di sana saya bermain dengan whatsapp bot dan mendapatkan banyak wawasan hal baru seperti websocket, kriptografi, dan konsep-konsep lainnya yang saling mendukung dan melengkapi.",
+      "Terkadang Saya mempelajari hal lain pada saat saya mempelajari GraphQL sebagai pelarian saya ketika stuck saat mendalami GraphQL, untuk saat ini saya tertarik pada jaringan khususnya pada layer application yaitu protocol http, karena dulu saya bermain dengan whatsapp bot dan membuat rest api yang di consume bot tersebut, service yang disediakan hanyalah tools image and video downloader yang saya dapatkan dari hasil scraping, dan juga masih ada service lainnya. dari situ saya mendapatkan banyak wawasan hal baru seperti websocket, kriptografi, dan konsep-konsep lainnya yang saling mendukung dan melengkapi. maka dari itu saya jadi tertarik untuk merewrite project tersebut ke golang.",
   },
   {
     id: 3,
