@@ -7,6 +7,8 @@ import Banner from "./banner";
 import About from "./about";
 import Projects from "./projects";
 import Experience from "./experience";
+import ThanksTo from "./thanksto";
+import Milestones from "./timeline";
 
 const MainHome = () => {
   return (
@@ -16,6 +18,8 @@ const MainHome = () => {
         <About />
         <Projects />
         <Experience />
+        <ThanksTo />
+        <Milestones />
       </VStack>
     </Box>
   );

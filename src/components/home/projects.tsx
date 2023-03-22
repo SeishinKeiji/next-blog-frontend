@@ -8,7 +8,6 @@ const Projects = () => {
       <Heading fontSize={"3xl"} fontWeight={"medium"}>
         Projects
       </Heading>
-      <Text fontWeight={"medium"}>Currently learning about web tech stack. Deep dive in SERN stack, SQL - Express - React - Node.</Text>
       <Box h="sm">
         <Swiper pagination={{ dynamicBullets: true }} modules={[Pagination]} loop autoplay>
           <SwiperSlide>Shinigami REST API - ExpressJs</SwiperSlide>
