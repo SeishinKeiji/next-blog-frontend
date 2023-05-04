@@ -39,7 +39,7 @@ type FormValues = {
   file_: FileList;
 };
 
-const App = () => {
+const ImageInput = () => {
   const {
     register,
     handleSubmit,
@@ -77,4 +77,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default ImageInput;

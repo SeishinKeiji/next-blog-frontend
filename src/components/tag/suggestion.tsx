@@ -31,7 +31,7 @@ export const Suggestion: React.FC = () => {
 
   return (
     <Box pos="relative" zIndex={"overlay"}>
-      <Box layerStyle="card" ref={(node) => (container.current = node)} pos="absolute" w="full" maxHeight={"200px"} overflowY="auto" bg="gray.50" shadow="md" roundedBottom={"lg"}>
+      <Box ref={(node) => (container.current = node)} pos="absolute" w="full" maxHeight={"200px"} overflowY="auto" bg="gray.50" shadow="md" roundedBottom={"lg"}>
         <VStack as={"ul"} spacing={0} divider={<Divider />} alignItems="stretch">
           {suggestionTags.length || !query.length ? (
             suggestionTags.map((item, index) => (
