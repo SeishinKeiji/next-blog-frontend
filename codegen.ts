@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   verbose: true,
   debug: true,
   watch: true,
-  schema: "http://localhost:8000/graphql",
+  schema: "http://localhost:8000/graphiql",
   documents: "./lib/GraphQL/**/*.ts",
   generates: {
     "generated-types.ts": {

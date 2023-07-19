@@ -1,9 +1,10 @@
-import { Button, Center, Checkbox, Container, FormControl, FormLabel, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Stack, useColorModeValue, useToast, VStack } from "@chakra-ui/react";
+import { Button, Center, Checkbox, Container, Divider, FormControl, FormLabel, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Stack, useColorModeValue, useToast, VStack } from "@chakra-ui/react";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 
 import { Mutation } from "generated-types";
 import { AuthLayout } from "components/layout/auth.layout";
+import { GoogleIcon } from "components/icon/GoogleIcon";
 import { LOGIN } from "lib/GraphQL/Mutations";
 import { withWrapper } from "src/hooks/withWrapper";
 import { CURRENT_USER } from "lib/GraphQL/Queries";
@@ -88,11 +89,15 @@ const Login = () => {
                     bg: "green.500",
                   }}
                   rounded="md"
-                  w="100%"
+                  w="full"
                   onClick={handleLogin}
                   isLoading={loading}
                 >
                   Sign in
+                </Button>
+                <Divider />
+                <Button w="full" leftIcon={<GoogleIcon />}>
+                  Sign in with Google
                 </Button>
               </VStack>
             </VStack>
